@@ -896,7 +896,9 @@
         <p class="form-title">Reserve seu lugar</p>
         <p class="form-sub">Acesso antecipado + preço de fundador + guia gratuito</p>
 
-        <form id="waitlist-form" onsubmit="handleSubmit(event)">
+        <form id="waitlist-form" action="https://formspree.io/f/xyzpqwvk" method="POST" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="origin" value="Site" />
+          <input type="hidden" name="_subject" value="Nova inscrição — Lista de Espera" />
           <div class="form-field">
             <input type="text" id="name" name="name" placeholder="Seu nome" required autocomplete="name" />
           </div>
