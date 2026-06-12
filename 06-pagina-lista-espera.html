@@ -896,9 +896,7 @@
         <p class="form-title">Reserve seu lugar</p>
         <p class="form-sub">Acesso antecipado + preço de fundador + guia gratuito</p>
 
-        <form id="waitlist-form" action="https://formspree.io/f/xyzpqwvk" method="POST" onsubmit="handleSubmit(event)">
-          <input type="hidden" name="origin" value="Site" />
-          <input type="hidden" name="_subject" value="Nova inscrição — Lista de Espera" />
+        <form id="waitlist-form" onsubmit="handleSubmit(event)">
           <div class="form-field">
             <input type="text" id="name" name="name" placeholder="Seu nome" required autocomplete="name" />
           </div>
@@ -1192,30 +1190,35 @@
   </footer>
 
   <script>
+    // ─── Cole aqui a URL do Google Apps Script após configurar ───
+    var SCRIPT_URL = 'COLE_SUA_URL_AQUI';
+
+    function enviarLead(nome, email, origem) {
+      if (SCRIPT_URL === 'COLE_SUA_URL_AQUI') return; // ainda não configurado
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: nome, email: email, origem: origem })
+      }).catch(function() {}); // no-cors = sem resposta, silencia erro
+    }
+
     function handleSubmit(e) {
       e.preventDefault();
-      const name  = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-
-      // TODO: integrar Mailchimp/Brevo
-      // fetch('https://api.brevo.com/v3/contacts', { ... })
-
+      var nome  = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      enviarLead(nome, email, 'Hero - Lista de Espera');
       document.getElementById('waitlist-form').style.display = 'none';
       document.getElementById('success').classList.add('show');
-
-      console.log('Lead capturado (hero):', { name, email });
     }
 
     function handleSubmit2(e) {
       e.preventDefault();
-      const name  = document.getElementById('name2').value;
-      const email = document.getElementById('email2').value;
-
-      // TODO: integrar Mailchimp/Brevo
+      var nome  = document.getElementById('name2').value.trim();
+      var email = document.getElementById('email2').value.trim();
+      enviarLead(nome, email, 'CTA Final - Lista de Espera');
       document.getElementById('waitlist-form-2').style.display = 'none';
       document.getElementById('success2').classList.add('show');
-
-      console.log('Lead capturado (final):', { name, email });
     }
   </script>
 
