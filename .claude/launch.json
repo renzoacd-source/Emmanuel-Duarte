@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "emmanuel-landing",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "3091", "C:\\Users\\renzo\\projects\\09-emmanuel-duarte-comunicacao"],
+      "port": 3091
+    }
+  ]
+}

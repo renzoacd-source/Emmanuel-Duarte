@@ -1,0 +1,20 @@
+PASTA DE FOTOS — Projeto Emmanuel Duarte
+========================================
+
+Colocar aqui as fotos profissionais do Emmanuel para usar nas páginas de vendas.
+
+Fotos necessárias:
+- hero-emmanuel.jpg         → foto principal para o topo da página de vendas
+                              (formato: meio corpo, fundo neutro ou ambiente profissional)
+- emmanuel-sobre.jpg        → seção "quem sou eu" (mais íntima, confiança)
+- emmanuel-microfone.jpg    → Emmanuel no microfone / Rádio Itatiaia (credencial visual)
+- emmanuel-cta-final.jpg    → foto de encerramento / CTA final da página (energia positiva)
+
+Especificações técnicas:
+- Formato: JPG ou WebP
+- Tamanho mínimo: 800x800px
+- Hero recomendado: 1200x800px (landscape) ou 800x1000px (portrait)
+- Compressão: otimizar para web (< 300kb por foto)
+
+Dica: o hero banner já está gerado em assets/02-hero-banner.png
+Se usar esse como referência visual, manter a paleta preto/branco/dourado.
