@@ -23,13 +23,38 @@
       --ease:     cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--ink); }
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
-      background: var(--ink); color: var(--white);
+      background: transparent; color: var(--white);
       line-height: 1.6; font-size: 16px;
       -webkit-font-smoothing: antialiased; overflow-x: hidden;
     }
+
+    /* ─── RADIO-WAVE BACKGROUND FIELD ────────────────────── */
+    .bg-waves {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: -1; pointer-events: none; display: block;
+    }
+
+    /* ─── SPOTLIGHT (cursor-reactive panels) ─────────────── */
+    .spotlight { position: relative; }
+    .spotlight::after {
+      content: ""; position: absolute; inset: 0; z-index: 1;
+      background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(255,68,56,0.13), transparent 62%);
+      opacity: 0; transition: opacity 0.35s var(--ease); pointer-events: none;
+    }
+    .spotlight:hover::after { opacity: 1; }
+    .spotlight { overflow: hidden; }
+    .spotlight > * { position: relative; z-index: 2; }
+
+    /* ─── EQUALIZER (on-air motif) ───────────────────────── */
+    .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 13px; }
+    .eq i { width: 2px; height: 100%; background: var(--red); transform-origin: bottom; transform: scaleY(0.4); animation: eq 0.9s var(--ease) infinite; }
+    .eq i:nth-child(2) { animation-delay: 0.16s; }
+    .eq i:nth-child(3) { animation-delay: 0.32s; }
+    .eq i:nth-child(4) { animation-delay: 0.48s; }
+    @keyframes eq { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     .mono { font-family: 'SF Mono', ui-monospace, 'JetBrains Mono', 'Cascadia Code', Menlo, monospace; }
@@ -339,6 +364,7 @@
 </head>
 <body>
 
+  <canvas class="bg-waves" id="bgWaves" aria-hidden="true"></canvas>
   <div class="progress" aria-hidden="true"></div>
 
   <header class="site-header" id="header">
@@ -350,7 +376,7 @@
   <section class="hero" id="topo">
     <div class="pscene"><div class="pbg"></div></div>
     <div class="wrap hero-inner">
-      <span class="onair"><span class="onair-dot"></span>No ar &middot; turma fundadora</span>
+      <span class="onair"><span class="eq"><i></i><i></i><i></i><i></i></span>No ar &middot; turma fundadora</span>
       <h1 class="hl">
         <span class="line"><span class="w" style="animation-delay:.05s">Aprenda</span> <span class="w" style="animation-delay:.12s">a</span> <span class="w" style="animation-delay:.19s">se</span></span>
         <span class="line"><span class="w accent" style="animation-delay:.26s">comunicar</span></span>
@@ -480,16 +506,16 @@
     </div>
     <div class="wrap">
       <div class="mod-track" id="modTrack">
-        <article class="mcard"><span class="mcard-n mono">01</span><h3 class="mcard-t">A base da comunicação</h3><p class="mcard-d">Clareza, não perfeição. Por que você trava e como destravar.</p></article>
-        <article class="mcard"><span class="mcard-n mono">02</span><h3 class="mcard-t">Voz</h3><p class="mcard-d">Dicção, projeção, ritmo e pausa. O silêncio como ferramenta.</p></article>
-        <article class="mcard"><span class="mcard-n mono">03</span><h3 class="mcard-t">Comunicação não verbal</h3><p class="mcard-d">Postura, olhar e gestos. O corpo fala antes de você.</p></article>
-        <article class="mcard"><span class="mcard-n mono">04</span><h3 class="mcard-t">Falar em público</h3><p class="mcard-d">A técnica dos 3 pontos para nunca mais travar no palco.</p></article>
-        <article class="mcard"><span class="mcard-n mono">05</span><h3 class="mcard-t">Reuniões e apresentações</h3><p class="mcard-d">Como entrar numa sala sendo ouvido e convencer com estrutura.</p></article>
-        <article class="mcard"><span class="mcard-n mono">06</span><h3 class="mcard-t">Comunicação em crise</h3><p class="mcard-d">O que fazer nos primeiros 60 segundos quando tudo aperta.</p></article>
-        <article class="mcard"><span class="mcard-n mono">07</span><h3 class="mcard-t">Negociação</h3><p class="mcard-d">Clareza é mais poderosa que coragem improvisada.</p></article>
-        <article class="mcard"><span class="mcard-n mono">08</span><h3 class="mcard-t">Treino de voz</h3><p class="mcard-d">Exercícios diários e um plano prático de 30 dias.</p></article>
-        <article class="mcard"><span class="mcard-n mono">09</span><h3 class="mcard-t">Mini estúdio em casa</h3><p class="mcard-d">Como gravar com qualidade usando o que você já tem.</p></article>
-        <article class="mcard"><span class="mcard-n mono">10</span><h3 class="mcard-t">Media training</h3><p class="mcard-d">Câmeras, microfones e como se portar em aparições.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">01</span><h3 class="mcard-t">A base da comunicação</h3><p class="mcard-d">Clareza, não perfeição. Por que você trava e como destravar.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">02</span><h3 class="mcard-t">Voz</h3><p class="mcard-d">Dicção, projeção, ritmo e pausa. O silêncio como ferramenta.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">03</span><h3 class="mcard-t">Comunicação não verbal</h3><p class="mcard-d">Postura, olhar e gestos. O corpo fala antes de você.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">04</span><h3 class="mcard-t">Falar em público</h3><p class="mcard-d">A técnica dos 3 pontos para nunca mais travar no palco.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">05</span><h3 class="mcard-t">Reuniões e apresentações</h3><p class="mcard-d">Como entrar numa sala sendo ouvido e convencer com estrutura.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">06</span><h3 class="mcard-t">Comunicação em crise</h3><p class="mcard-d">O que fazer nos primeiros 60 segundos quando tudo aperta.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">07</span><h3 class="mcard-t">Negociação</h3><p class="mcard-d">Clareza é mais poderosa que coragem improvisada.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">08</span><h3 class="mcard-t">Treino de voz</h3><p class="mcard-d">Exercícios diários e um plano prático de 30 dias.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">09</span><h3 class="mcard-t">Mini estúdio em casa</h3><p class="mcard-d">Como gravar com qualidade usando o que você já tem.</p></article>
+        <article class="mcard spotlight"><span class="mcard-n mono">10</span><h3 class="mcard-t">Media training</h3><p class="mcard-d">Câmeras, microfones e como se portar em aparições.</p></article>
       </div>
     </div>
   </section>
@@ -546,7 +572,7 @@
         <h2 class="k">Garanta seu<br>lugar agora</h2>
         <p>A lista é gratuita e sem compromisso. Quem entra primeiro recebe o preço de fundador e sai na frente.</p>
       </div>
-      <div class="card">
+      <div class="card spotlight">
         <p class="card-title">Reserve seu lugar</p>
         <p class="card-sub">Acesso antecipado, preço de fundador e o guia gratuito na hora.</p>
         <form id="waitlist-form" onsubmit="handleSubmit(event)">
@@ -678,7 +704,58 @@
         });
         tilt.addEventListener('pointerleave', function () { tilt.style.transform = ''; });
       }
+
+      /* ─── Spotlight follow (cursor-reactive panels) ─── */
+      document.querySelectorAll('.spotlight').forEach(function (el) {
+        el.addEventListener('pointermove', function (e) {
+          var r = el.getBoundingClientRect();
+          el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+      });
     }
+
+    /* ─── Radio-wave background field (canvas) ─── */
+    (function () {
+      var c = document.getElementById('bgWaves'); if (!c) return;
+      var ctx = c.getContext('2d'); var W, H, DPR;
+      function size() {
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth; H = window.innerHeight;
+        c.style.width = W + 'px'; c.style.height = H + 'px';
+        c.width = Math.floor(W * DPR); c.height = Math.floor(H * DPR);
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+      size();
+      var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(size, 160); }, { passive: true });
+      var waves = [
+        { amp: 40, len: 0.0016, sp: 0.016, y: 0.30, w: 1.2, a: 0.11, col: '255,68,56' },
+        { amp: 58, len: 0.0011, sp: 0.011, y: 0.50, w: 1.4, a: 0.08, col: '255,68,56' },
+        { amp: 32, len: 0.0022, sp: 0.022, y: 0.67, w: 1.0, a: 0.06, col: '244,244,242' },
+        { amp: 74, len: 0.0008, sp: 0.008, y: 0.83, w: 1.6, a: 0.05, col: '255,68,56' }
+      ];
+      function draw(t) {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < waves.length; i++) {
+          var v = waves[i];
+          ctx.beginPath();
+          for (var x = 0; x <= W; x += 6) {
+            var y = H * v.y + Math.sin(x * v.len + t * v.sp + i) * v.amp;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = 'rgba(' + v.col + ',' + v.a + ')';
+          ctx.lineWidth = v.w; ctx.stroke();
+        }
+      }
+      if (REDUCE) { draw(0); return; }
+      var raf, running = true, t = 0;
+      function loop() { if (!running) return; t += 1; draw(t); raf = requestAnimationFrame(loop); }
+      loop();
+      document.addEventListener('visibilitychange', function () {
+        running = !document.hidden;
+        if (running) loop(); else cancelAnimationFrame(raf);
+      });
+    })();
   </script>
 
 </body>
