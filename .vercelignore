@@ -1,0 +1,30 @@
+# ===== Conteúdo interno — NUNCA publicar =====
+# Pastas de trabalho (estratégia, marketing, vendas, roteiros, operacional)
+.claude/
+estrategia/
+marketing/
+vendas/
+operacional/
+roteiros-curso/
+
+# Documentos e scripts (copy, contexto, geradores de imagem, apps script)
+*.md
+*.py
+*.gs
+
+# Imagens soltas/legadas na raiz (a página usa pagina-de-vendas/fotos/)
+*.jpg.png
+
+# pagina-de-vendas: publicar SOMENTE a pasta de fotos
+pagina-de-vendas/*
+!pagina-de-vendas/fotos
+
+# assets: publicar SOMENTE a capa do lead magnet
+assets/*
+!assets/01-cover-lead-magnet.png
+
+# ===== Fica público =====
+# index.html  (redireciona para a landing)
+# 06-pagina-lista-espera.html  (a landing)
+# assets/01-cover-lead-magnet.png
+# pagina-de-vendas/fotos/*.jpg
