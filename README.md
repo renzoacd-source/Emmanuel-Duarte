@@ -80,7 +80,7 @@
 | Roteiros do curso (módulo 1 completo) | ✅ Pronto |
 | Outline módulos 2–10 | ✅ Pronto |
 | Copy da página de vendas | ✅ Pronto (md) |
-| Página de vendas (HTML) | ❌ Pendente |
+| Página de vendas (HTML) | ✅ Pronto — no ar: /curso.html (falta só plugar o checkout Kiwify) |
 | Configuração Kiwify | ❌ Pendente |
 
 ---
