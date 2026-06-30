@@ -1,9 +1,9 @@
 # 09 — Emmanuel Duarte: Aprenda a se Comunicar
 
-**Status:** ✅ Página de lista de espera PRONTA E FUNCIONAL — Fase 1 (captura ativa)
+**Status:** ✅ Landing (redesign tema "NO AR") no ar e funcional — Fase 1 (captura ativa)
 **Data de criação:** 11/06/2026
-**Última atualização:** 12/06/2026
-**Link ao vivo:** http://localhost:3091
+**Última atualização:** 30/06/2026
+**Link ao vivo:** https://emmanuel-duarte.netlify.app
 
 ---
 
