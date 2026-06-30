@@ -3,1222 +3,681 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aprenda a se Comunicar — Lista de Espera | Emmanuel Duarte</title>
-  <meta name="description" content="Entre na lista de espera do programa Aprenda a se Comunicar com Emmanuel Duarte, a voz da Rádio Itatiaia. Acesso antecipado e condições exclusivas." />
+  <title>Aprenda a se Comunicar | Emmanuel Duarte, a voz da Rádio Itatiaia</title>
+  <meta name="description" content="O programa de comunicação de Emmanuel Duarte, a voz da Rádio Itatiaia. Fale com clareza, presença e sem travar. Entre na lista de espera." />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:    #080808;
-      --dark:     #111111;
-      --card:     #161616;
-      --border:   #272727;
-      --white:    #f5f5f3;
-      --gray:     #888888;
-      --gray-lt:  #c0c0b8;
-      --gold:     #c4a048;
-      --gold-dim: #7a6030;
-      --gold-bg:  rgba(196,160,72,0.08);
+      --ink:      #0a0a0b;
+      --ink-2:    #111113;
+      --surface:  #141416;
+      --border:   #26262a;
+      --border-2: #34343a;
+      --white:    #f4f4f2;
+      --mute:     #9a9aa2;
+      --mute-2:   #6c6c74;
+      --red:      #ff4438;
+      --red-deep: #d8311f;
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    html { scroll-behavior: smooth; }
-
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-      background: var(--black);
-      color: var(--white);
-      line-height: 1.6;
-      font-size: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+      background: var(--ink); color: var(--white);
+      line-height: 1.6; font-size: 16px;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .mono { font-family: 'SF Mono', ui-monospace, 'JetBrains Mono', 'Cascadia Code', Menlo, monospace; }
+    .accent { color: var(--red); }
 
-    /* ─── TIPOGRAFIA ─────────────────────────────────────── */
-    .serif { font-family: Georgia, 'Times New Roman', serif; }
-
-    h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.15; }
-
-    /* ─── UTILITÁRIOS ────────────────────────────────────── */
-    .gold-rule {
-      display: block;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      border: none;
+    h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.0; }
+    .kicker {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red);
+      display: inline-flex; align-items: center; gap: 10px;
     }
-    .gold-rule-solid {
-      display: block;
-      height: 1px;
-      background: var(--gold);
-      border: none;
+    .kicker::before { content: ""; width: 22px; height: 2px; background: var(--red); }
+
+    .wrap { max-width: 1240px; margin: 0 auto; padding-inline: 40px; }
+    section { position: relative; }
+    .pad { padding-block: clamp(76px, 11vw, 140px); }
+    .h-section {
+      font-size: clamp(30px, 4.6vw, 60px); font-weight: 800;
+      text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.94;
     }
 
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: block;
-      margin-bottom: 28px;
+    /* ─── SCROLL PROGRESS ────────────────────────────────── */
+    .progress {
+      position: fixed; inset: 0 0 auto 0; height: 3px;
+      background: var(--red); transform: scaleX(0); transform-origin: left;
+      z-index: 200;
     }
 
     /* ─── HEADER ─────────────────────────────────────────── */
     .site-header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 18px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+      position: fixed; inset: 0 0 auto 0; z-index: 150; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(10,10,11,0.6);
+      backdrop-filter: saturate(140%) blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
     }
-    .header-name {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gray-lt);
-    }
+    .site-header.scrolled { border-bottom-color: var(--border); background: rgba(10,10,11,0.82); }
+    .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+    .brand b { color: var(--red); }
     .header-cta {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--gold);
-      border: 1px solid var(--gold-dim);
-      padding: 8px 18px;
-      border-radius: 2px;
-      transition: background 0.2s;
+      font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--red); border: 1px solid var(--red); padding: 9px 18px;
+      transition: background 0.18s, color 0.18s, transform 0.2s var(--ease);
+      will-change: transform;
     }
-    .header-cta:hover { background: var(--gold-bg); }
+    .header-cta:hover { background: var(--red); color: var(--ink); }
+
+    /* ─── PARALLAX PRIMITIVES ────────────────────────────── */
+    .pscene { position: absolute; inset: 0; overflow: hidden; }
+    .pbg { position: absolute; inset: -19% 0; width: 100%; height: 138%; }
 
     /* ─── HERO ───────────────────────────────────────────── */
     .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
+      position: relative; min-height: 100dvh;
+      display: flex; align-items: center;
+      padding: 110px 0 96px; overflow: hidden;
     }
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('pagina-de-vendas/fotos/hero.jpg');
-      background-size: cover;
-      background-position: center 20%;
-      filter: brightness(0.45) contrast(1.1) saturate(0.6);
-      transform: scale(1.02);
+    .hero .pbg {
+      background: url('pagina-de-vendas/fotos/hero.jpg') center 18% / cover no-repeat;
+      filter: grayscale(1) contrast(1.15) brightness(0.36);
     }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        105deg,
-        rgba(8,8,8,0.88) 0%,
-        rgba(8,8,8,0.65) 55%,
-        rgba(8,8,8,0.20) 100%
-      );
+    .hero .pscene::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(100deg, rgba(10,10,11,0.95) 0%, rgba(10,10,11,0.72) 46%, rgba(10,10,11,0.34) 100%),
+        linear-gradient(to bottom, transparent 58%, var(--ink) 100%);
     }
-    .hero-overlay-bottom {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 200px;
-      background: linear-gradient(to bottom, transparent, var(--black));
+    .hero-inner { position: relative; z-index: 2; width: 100%; max-width: 900px; }
+    .hero .onair {
+      display: inline-flex; align-items: center; gap: 11px;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
     }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 120px 48px 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      width: 100%;
+    .onair-dot {
+      width: 9px; height: 9px; border-radius: 50%; background: var(--red);
+      animation: ping 1.8s var(--ease) infinite;
     }
-    .hero-left {}
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 36px;
+    @keyframes ping {
+      0% { box-shadow: 0 0 0 0 rgba(255,68,56,0.6); }
+      70% { box-shadow: 0 0 0 11px rgba(255,68,56,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,68,56,0); }
     }
-    .hero-badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      animation: pulse 2s infinite;
+    .hl {
+      margin: 26px 0 0; font-weight: 800; text-transform: uppercase;
+      letter-spacing: -0.035em; line-height: 0.9;
+      font-size: clamp(44px, 6.4vw, 96px);
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    .hl .line { display: block; overflow: hidden; padding-bottom: 0.04em; }
+    .hl .w { display: inline-block; transform: translateY(112%); }
+    .hero-sub {
+      font-size: clamp(15px, 1.6vw, 19px); color: var(--mute);
+      line-height: 1.6; margin-top: 26px; max-width: 470px;
     }
-    .hero-badge span {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
+    .hero-actions { display: flex; align-items: center; gap: 26px; margin-top: 38px; flex-wrap: wrap; }
+    .btn-lg {
+      display: inline-block; padding: 17px 30px; background: var(--red); color: var(--ink);
+      font-size: 14px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+      border: 1px solid var(--red); cursor: pointer; will-change: transform;
+      transition: background 0.18s, transform 0.25s var(--ease);
     }
+    .btn-lg:hover { background: var(--red-deep); border-color: var(--red-deep); }
+    .link-ghost {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--white); display: inline-flex; align-items: center; gap: 9px;
+      border-bottom: 1px solid var(--border-2); padding-bottom: 4px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .link-ghost:hover { color: var(--red); border-color: var(--red); }
+    .link-ghost span { transition: transform 0.25s var(--ease); }
+    .link-ghost:hover span { transform: translateX(5px); }
 
-    .hero h1 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(40px, 5.5vw, 72px);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
+    /* ─── TICKER ─────────────────────────────────────────── */
+    .ticker {
+      position: absolute; inset: auto 0 0 0; z-index: 3; overflow: hidden;
+      border-top: 1px solid var(--border); background: rgba(10,10,11,0.55);
+      backdrop-filter: blur(6px); padding: 14px 0;
     }
-    .hero h1 em {
-      color: var(--gold);
-      font-style: normal;
+    .ticker-track { display: inline-flex; white-space: nowrap; animation: ticker 19s linear infinite; }
+    .ticker-track > span {
+      display: inline-flex; align-items: center; gap: 30px; padding-right: 30px;
+      font-size: 12px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white);
     }
-    .hero-subtitle {
-      font-size: clamp(15px, 1.8vw, 18px);
-      color: var(--gray-lt);
-      line-height: 1.65;
-      margin: 24px 0 0;
-      max-width: 440px;
-    }
-    .hero-credential {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-    }
-    .hero-credential-line {
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
-    }
-    .hero-credential p {
-      font-size: 12px;
-      color: var(--gray);
-      letter-spacing: 0.04em;
-    }
-    .hero-credential strong {
-      color: var(--gray-lt);
-      font-weight: 600;
-    }
+    .ticker-track i { color: var(--red); font-style: normal; }
+    @keyframes ticker { to { transform: translateX(-50%); } }
 
-    /* ─── FORM CARD ──────────────────────────────────────── */
-    .hero-form-wrap {
-      background: rgba(22,22,22,0.92);
-      border: 1px solid var(--border);
-      border-top: 2px solid var(--gold);
-      padding: 40px 36px;
-      backdrop-filter: blur(12px);
-    }
-    .form-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 6px;
-    }
-    .form-sub {
-      font-size: 13px;
-      color: var(--gray);
-      margin-bottom: 28px;
-    }
-    .form-field {
-      margin-bottom: 12px;
-    }
-    .form-field input {
-      width: 100%;
-      padding: 15px 16px;
-      font-size: 15px;
-      background: var(--dark);
-      border: 1px solid var(--border);
-      color: var(--white);
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.2s;
-      border-radius: 2px;
-    }
-    .form-field input:focus { border-color: var(--gold); }
-    .form-field input::placeholder { color: #555; }
+    /* ─── STATS ──────────────────────────────────────────── */
+    .stats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .stat { padding: 38px 32px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 9px; }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: clamp(40px, 5vw, 52px); font-weight: 800; color: var(--red); line-height: 1; letter-spacing: -0.03em; }
+    .stat-label { font-size: 12px; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; }
 
-    .btn-primary {
-      width: 100%;
-      padding: 16px 24px;
-      background: var(--gold);
-      color: var(--black);
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: opacity 0.2s, transform 0.1s;
-      border-radius: 2px;
-      margin-top: 4px;
-    }
-    .btn-primary:hover { opacity: 0.9; }
-    .btn-primary:active { transform: scale(0.99); }
+    /* ─── KINETIC HEADING REVEAL ─────────────────────────── */
+    .k { clip-path: inset(0 0 102% 0); transform: translateY(0.22em); transition: clip-path 0.85s var(--ease), transform 0.85s var(--ease); }
+    .k.in { clip-path: inset(0 0 -12% 0); transform: none; }
 
-    .form-note {
-      font-size: 11px;
-      color: #555;
-      margin-top: 12px;
-      text-align: center;
-      letter-spacing: 0.03em;
-    }
-    .success-msg {
-      display: none;
-      text-align: center;
-      padding: 20px;
-    }
-    .success-msg.show { display: block; }
-    .success-msg p {
-      font-family: Georgia, serif;
-      font-size: 18px;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .success-msg small {
-      font-size: 13px;
-      color: var(--gray);
-    }
-
-    /* ─── STATS BAR ──────────────────────────────────────── */
-    .stats-bar {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 32px 48px;
-    }
-    .stats-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      text-align: center;
-    }
-    .stat-item {
-      padding: 0 32px;
-      border-right: 1px solid var(--border);
-    }
-    .stat-item:last-child { border-right: none; }
-    .stat-num {
-      font-family: Georgia, serif;
-      font-size: 38px;
-      font-weight: 700;
-      color: var(--gold);
-      display: block;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .stat-label {
-      font-size: 12px;
-      color: var(--gray);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
+    /* ─── GENERIC REVEAL ─────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    .stagger > * { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+    .stagger.in > * { opacity: 1; transform: none; }
+    .stagger.in > *:nth-child(2) { transition-delay: 0.08s; }
+    .stagger.in > *:nth-child(3) { transition-delay: 0.16s; }
+    .stagger.in > *:nth-child(4) { transition-delay: 0.24s; }
 
     /* ─── ABOUT ──────────────────────────────────────────── */
-    .about {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .about-photo-wrap {
-      position: relative;
-    }
-    .about-photo {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      filter: brightness(0.75) contrast(1.1) saturate(0.5);
-    }
-    .about-photo-frame {
-      position: absolute;
-      inset: -12px;
-      border: 1px solid var(--gold-dim);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .about-photo-wrap > img { position: relative; z-index: 1; }
-    .about-gold-line {
-      position: absolute;
-      bottom: -24px;
-      left: 0;
-      width: 60px;
-      height: 2px;
-      background: var(--gold);
-      z-index: 2;
-    }
-
-    .about-text {}
-    .about-text h2 {
-      font-family: Georgia, serif;
-      font-size: clamp(28px, 3vw, 42px);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 24px;
-    }
-    .about-text h2 em {
-      color: var(--gold);
-      font-style: normal;
-    }
-    .about-text p {
-      font-size: 15px;
-      color: var(--gray-lt);
-      line-height: 1.75;
-      margin-bottom: 18px;
-    }
-    .about-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 32px;
-    }
-    .badge-item {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid var(--gold-dim);
-      padding: 8px 14px;
-      border-radius: 2px;
-      background: var(--gold-bg);
-    }
+    .about-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 72px; align-items: center; }
+    .photo-block { position: relative; overflow: hidden; }
+    .photo-block .pscene { position: relative; aspect-ratio: 3/4; }
+    .photo-block .pbg { background-size: cover; background-position: center top; filter: grayscale(1) contrast(1.08) brightness(0.92); }
+    .photo-block::before { content: ""; position: absolute; left: -14px; top: -14px; width: 64px; height: 64px; border-left: 2px solid var(--red); border-top: 2px solid var(--red); z-index: 2; }
+    .about-body { margin-top: 22px; }
+    .about-body p { color: var(--mute); font-size: 16px; line-height: 1.75; margin-bottom: 16px; max-width: 60ch; }
+    .about-body p b { color: var(--white); font-weight: 700; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+    .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); border: 1px solid var(--border-2); padding: 8px 13px; transition: border-color 0.2s, color 0.2s; }
+    .tag:hover { border-color: var(--red); color: var(--white); }
 
     /* ─── BENEFITS ───────────────────────────────────────── */
-    .benefits {
-      background: var(--dark);
-      padding: 100px 48px;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .benefits-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-      margin-top: 0;
-    }
-    .benefit-card {
-      background: var(--card);
-      padding: 40px 36px;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s;
-    }
-    .benefit-card:hover { border-color: var(--gold-dim); }
-    .benefit-num {
-      font-family: Georgia, serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--gold);
-      margin-bottom: 20px;
-      display: block;
-    }
-    .benefit-title {
-      font-family: Georgia, serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 12px;
-      line-height: 1.3;
-    }
-    .benefit-text {
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.7;
-    }
+    .ben-rows { border-top: 1px solid var(--border); margin-top: 6px; }
+    .ben-row { display: grid; grid-template-columns: 92px 1fr; gap: 28px; padding: 34px 0; border-bottom: 1px solid var(--border); transition: padding-left 0.3s var(--ease); }
+    .ben-row:hover { padding-left: 16px; }
+    .ben-num { font-size: 15px; font-weight: 800; color: var(--red); padding-top: 4px; }
+    .ben-title { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 8px; }
+    .ben-text { color: var(--mute); font-size: 15px; line-height: 1.7; max-width: 62ch; }
 
     /* ─── BONUS ──────────────────────────────────────────── */
-    .bonus {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 48px;
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-    .bonus-cover img {
-      width: 100%;
-      display: block;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
-    }
-    .bonus-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-      display: block;
-    }
-    .bonus h3 {
-      font-family: Georgia, serif;
-      font-size: clamp(20px, 2.5vw, 28px);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-    .bonus > div > p {
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-    .bonus-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .bonus-list li {
-      font-size: 14px;
-      color: var(--gray-lt);
-      padding-left: 20px;
-      position: relative;
-    }
-    .bonus-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 10px;
-      width: 10px;
-      height: 1px;
-      background: var(--gold);
-    }
+    .bonus-grid { display: grid; grid-template-columns: 250px 1fr; gap: 60px; align-items: center; }
+    .bonus-cover { will-change: transform; transition: transform 0.2s var(--ease); }
+    .bonus-cover img { box-shadow: 0 26px 70px rgba(0,0,0,0.6); border: 1px solid var(--border); }
+    .bonus-flag { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; display: inline-block; }
+    .bonus-grid h3 { font-size: clamp(22px, 2.6vw, 33px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; margin-bottom: 14px; }
+    .bonus-grid > div > p { color: var(--mute); font-size: 15px; line-height: 1.7; margin-bottom: 22px; max-width: 56ch; }
+    .checklist { list-style: none; display: grid; gap: 11px; }
+    .checklist li { position: relative; padding-left: 26px; font-size: 15px; }
+    .checklist li::before { content: ""; position: absolute; left: 0; top: 9px; width: 12px; height: 2px; background: var(--red); }
 
-    /* ─── STAGE PROOF ────────────────────────────────────── */
-    .stage-proof {
-      position: relative;
-      height: 520px;
-      overflow: hidden;
-    }
-    .stage-proof-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('pagina-de-vendas/fotos/palco.jpg');
-      background-size: cover;
-      background-position: center 30%;
-      filter: brightness(0.35) contrast(1.15) saturate(0.4);
-    }
-    .stage-proof-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(8,8,8,0.9) 0%,
-        rgba(8,8,8,0.4) 60%,
-        rgba(8,8,8,0.1) 100%
-      );
-    }
-    .stage-proof-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 48px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-    .stage-quote {
-      max-width: 560px;
-    }
-    .quote-mark {
-      font-family: Georgia, serif;
-      font-size: 80px;
-      color: var(--gold);
-      line-height: 0.6;
-      margin-bottom: 24px;
-      display: block;
-      opacity: 0.6;
-    }
-    .stage-quote blockquote {
-      font-family: Georgia, serif;
-      font-size: clamp(20px, 2.5vw, 28px);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--white);
-      line-height: 1.5;
-      margin-bottom: 28px;
-    }
-    .stage-quote-author {
-      font-size: 12px;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
+    /* ─── QUOTE ──────────────────────────────────────────── */
+    .quote { position: relative; overflow: hidden; min-height: 480px; display: flex; align-items: center; }
+    .quote .pbg { background: url('pagina-de-vendas/fotos/palco.jpg') center 28% / cover no-repeat; filter: grayscale(1) contrast(1.2) brightness(0.34); }
+    .quote .pscene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(95deg, rgba(10,10,11,0.92) 0%, rgba(10,10,11,0.5) 60%, rgba(10,10,11,0.18) 100%); }
+    .quote-inner { position: relative; z-index: 2; max-width: 760px; }
+    .quote blockquote { font-size: clamp(27px, 3.8vw, 50px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+    .quote cite { display: block; margin-top: 26px; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); }
 
-    /* ─── MODULES ────────────────────────────────────────── */
-    .modules {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 100px 48px;
+    /* ─── MODULES (horizontal drag strip) ────────────────── */
+    .modules { padding-block: clamp(76px, 11vw, 140px); overflow: hidden; }
+    .mod-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px; }
+    .mod-nav { display: flex; gap: 10px; flex-shrink: 0; }
+    .mod-btn { width: 50px; height: 50px; border: 1px solid var(--border-2); background: transparent; color: var(--white); cursor: pointer; font-size: 20px; line-height: 1; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .mod-btn:hover { background: var(--red); border-color: var(--red); color: var(--ink); }
+    .mod-track {
+      display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 4px 40px 24px; margin: 0 -40px;
+      cursor: grab; scrollbar-width: none;
     }
-    .modules-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      margin-top: 0;
-      border: 1px solid var(--border);
+    .mod-track::-webkit-scrollbar { display: none; }
+    .mod-track.drag { cursor: grabbing; scroll-snap-type: none; }
+    .mod-track.drag * { pointer-events: none; }
+    .mcard {
+      scroll-snap-align: start; flex: 0 0 320px; min-height: 280px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 30px 28px; display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s var(--ease), background 0.25s;
     }
-    .module-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      padding: 24px 28px;
-      border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-      transition: background 0.2s;
-    }
-    .module-item:nth-child(even) { border-right: none; }
-    .module-item:nth-last-child(-n+2) { border-bottom: none; }
-    .module-item:hover { background: var(--card); }
-    .module-num {
-      font-family: Georgia, serif;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--gold-dim);
-      letter-spacing: 0.08em;
-      flex-shrink: 0;
-      padding-top: 2px;
-    }
-    .module-name {
-      font-size: 14px;
-      color: var(--gray-lt);
-      line-height: 1.5;
-    }
-    .module-tag {
-      margin-left: auto;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gold);
-      padding: 3px 8px;
-      border: 1px solid var(--gold-dim);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
+    .mcard:hover { border-color: var(--red); transform: translateY(-6px); }
+    .mcard-n { font-size: 13px; font-weight: 800; color: var(--red); letter-spacing: 0.08em; }
+    .mcard-t { font-size: 23px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-top: auto; }
+    .mcard-d { font-size: 14px; color: var(--mute); line-height: 1.65; margin-top: 14px; }
 
-    /* ─── STUDIO SECTION ─────────────────────────────────── */
-    .studio-section {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .studio-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-    .studio-photo {
-      position: relative;
-      overflow: hidden;
-    }
-    .studio-photo img {
-      width: 100%;
-      height: 100%;
-      min-height: 480px;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      filter: brightness(0.6) contrast(1.1) saturate(0.4);
-    }
-    .studio-photo-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, transparent 60%, var(--dark));
-    }
-    .studio-text {
-      padding: 72px 56px 72px 64px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .studio-text h2 {
-      font-family: Georgia, serif;
-      font-size: clamp(24px, 2.8vw, 38px);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 24px;
-      line-height: 1.2;
-    }
-    .studio-text h2 em { color: var(--gold); font-style: normal; }
-    .studio-text p {
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.75;
-      margin-bottom: 14px;
-    }
+    /* ─── STUDIO ─────────────────────────────────────────── */
+    .studio { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .studio-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .studio-text { padding: clamp(58px, 7vw, 100px) clamp(40px, 5vw, 76px); display: flex; flex-direction: column; justify-content: center; }
+    .studio-text h2 { font-size: clamp(26px, 3vw, 44px); font-weight: 800; text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.98; margin-bottom: 22px; }
+    .studio-text p { color: var(--mute); font-size: 16px; line-height: 1.75; margin-bottom: 14px; max-width: 52ch; }
+    .studio-photo { position: relative; min-height: 460px; overflow: hidden; }
+    .studio-photo .pbg { background: url('pagina-de-vendas/fotos/console.jpg') center / cover no-repeat; filter: grayscale(1) contrast(1.12) brightness(0.7); }
 
     /* ─── FAQ ────────────────────────────────────────────── */
-    .faq {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 100px 48px;
-    }
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 28px 0;
-    }
-    .faq-item:first-of-type { border-top: 1px solid var(--border); }
-    .faq-q {
-      font-family: Georgia, serif;
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 12px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-    }
-    .faq-q::after {
-      content: '+';
-      font-size: 20px;
-      color: var(--gold);
-      flex-shrink: 0;
-      font-family: sans-serif;
-      font-weight: 300;
-    }
-    .faq-a {
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.75;
-    }
+    .faq-list { max-width: 820px; margin: 40px auto 0; }
+    details { border-bottom: 1px solid var(--border); }
+    details summary { list-style: none; cursor: pointer; padding: 26px 0; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    details summary::-webkit-details-marker { display: none; }
+    details summary::after { content: "+"; color: var(--red); font-size: 26px; font-weight: 400; line-height: 1; flex-shrink: 0; transition: transform 0.25s var(--ease); }
+    details[open] summary::after { content: "\2212"; }
+    .faq-a { padding: 0 0 26px; color: var(--mute); font-size: 15px; line-height: 1.75; max-width: 70ch; }
 
-    /* ─── FINAL CTA ──────────────────────────────────────── */
-    .final-cta {
-      position: relative;
-      overflow: hidden;
-      padding: 120px 48px;
-    }
-    .final-cta-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('pagina-de-vendas/fotos/hero.jpg');
-      background-size: cover;
-      background-position: center 35%;
-      filter: brightness(0.2) contrast(1.2) saturate(0.3);
-    }
-    .final-cta-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        var(--black) 0%,
-        rgba(8,8,8,0.7) 40%,
-        rgba(8,8,8,0.7) 60%,
-        var(--black) 100%
-      );
-    }
-    .final-cta-content {
-      position: relative;
-      z-index: 2;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .final-cta h2 {
-      font-family: Georgia, serif;
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 16px;
-    }
-    .final-cta h2 em { color: var(--gold); font-style: normal; }
-    .final-cta p {
-      font-size: 15px;
-      color: var(--gray-lt);
-      margin-bottom: 48px;
-    }
-    .final-form-wrap {
-      background: rgba(22,22,22,0.9);
-      border: 1px solid var(--border);
-      border-top: 2px solid var(--gold);
-      padding: 36px 32px;
-      backdrop-filter: blur(12px);
-    }
+    /* ─── INSCRIÇÃO (single conversion section) ──────────── */
+    .signup { position: relative; overflow: hidden; padding-block: clamp(92px, 13vw, 160px); }
+    .signup .pbg { background: url('pagina-de-vendas/fotos/hero.jpg') center 34% / cover no-repeat; filter: grayscale(1) contrast(1.2) brightness(0.22); }
+    .signup .pscene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--ink) 0%, rgba(10,10,11,0.6) 42%, rgba(10,10,11,0.6) 58%, var(--ink) 100%); }
+    .signup-inner { position: relative; z-index: 2; max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr 0.92fr; gap: 64px; align-items: center; }
+    .signup-copy h2 { font-size: clamp(34px, 5vw, 66px); font-weight: 800; text-transform: uppercase; letter-spacing: -0.035em; line-height: 0.92; }
+    .signup-copy p { color: var(--mute); font-size: 16px; margin-top: 20px; max-width: 42ch; }
+    .card { background: rgba(20,20,22,0.9); border: 1px solid var(--border); border-top: 3px solid var(--red); padding: 38px 34px; backdrop-filter: blur(10px); }
+    .card-title { font-size: 21px; font-weight: 800; letter-spacing: -0.01em; }
+    .card-sub { font-size: 13px; color: var(--mute); margin-top: 6px; margin-bottom: 24px; }
+    .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .field label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
+    .field input { width: 100%; padding: 14px 15px; font-size: 15px; font-family: inherit; background: var(--ink-2); border: 1px solid var(--border-2); color: var(--white); outline: none; transition: border-color 0.18s; }
+    .field input::placeholder { color: var(--mute-2); }
+    .field input:focus { border-color: var(--red); }
+    .btn { display: block; width: 100%; padding: 16px 22px; background: var(--red); color: var(--ink); font-size: 14px; font-weight: 800; font-family: inherit; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--red); cursor: pointer; margin-top: 6px; transition: background 0.18s, transform 0.08s; }
+    .btn:hover { background: var(--red-deep); border-color: var(--red-deep); }
+    .btn:active { transform: translateY(1px); }
+    .form-note { font-size: 11px; color: var(--mute-2); margin-top: 13px; text-align: center; letter-spacing: 0.03em; }
+    .success { display: none; text-align: center; padding: 16px 4px; }
+    .success.show { display: block; }
+    .success b { display: block; font-size: 19px; color: var(--red); margin-bottom: 8px; }
+    .success span { font-size: 13px; color: var(--mute); }
 
     /* ─── FOOTER ─────────────────────────────────────────── */
-    .site-footer {
-      background: var(--dark);
-      border-top: 1px solid var(--border);
-      padding: 48px;
+    .site-footer { border-top: 1px solid var(--border); padding-block: 44px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .footer-brand { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; }
+    .footer-brand span { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--red); margin-top: 5px; }
+    .footer-links { display: flex; gap: 26px; }
+    .footer-links a { font-size: 13px; color: var(--mute); transition: color 0.18s; }
+    .footer-links a:hover { color: var(--red); }
+    .footer-copy { font-size: 11px; color: var(--mute-2); margin-top: 28px; letter-spacing: 0.04em; }
+
+    /* ─── SCROLL-DRIVEN MOTION (progressive enhancement) ─── */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll()) {
+        .progress { animation: prog linear both; animation-timeline: scroll(root); }
+        @keyframes prog { to { transform: scaleX(1); } }
+      }
+      @supports (animation-timeline: view()) {
+        .pbg { animation: parallax linear both; animation-timeline: view(); animation-range: cover; }
+        @keyframes parallax { from { transform: translateY(-13%); } to { transform: translateY(13%); } }
+      }
+      .hl .w { animation: rise 0.95s var(--ease) forwards; }
+      @keyframes rise { to { transform: translateY(0); } }
     }
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer-name {
-      font-family: Georgia, serif;
-      font-size: 16px;
-      color: var(--white);
-    }
-    .footer-name span {
-      display: block;
-      font-family: inherit;
-      font-size: 11px;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-    .footer-links a {
-      font-size: 13px;
-      color: var(--gray);
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--gold); }
-    .footer-copy {
-      font-size: 11px;
-      color: #444;
-      margin-top: 32px;
-      text-align: center;
-      max-width: 1100px;
-      margin: 32px auto 0;
-      padding: 0 48px;
-      letter-spacing: 0.04em;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal, .stagger > * { opacity: 1; transform: none; }
+      .k { clip-path: none; transform: none; }
+      .hl .w { transform: none; }
+      .progress { display: none; }
+      html { scroll-behavior: auto; }
     }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 900px) {
-      .hero-content,
-      .about,
-      .bonus,
-      .studio-inner { grid-template-columns: 1fr; gap: 40px; }
-
-      .hero-content { padding: 100px 24px 60px; }
-      .hero-subtitle { max-width: 100%; }
-      .about { padding: 72px 24px; }
-      .about-photo { aspect-ratio: 16/9; max-height: 360px; }
-      .benefits { padding: 72px 24px; }
-      .benefits-grid { grid-template-columns: 1fr; }
-      .bonus { padding: 72px 24px; grid-template-columns: 140px 1fr; gap: 32px; }
-      .stage-proof { height: auto; min-height: 400px; }
-      .stage-proof-content { padding: 60px 24px; }
-      .modules { padding: 72px 24px; }
-      .modules-grid { grid-template-columns: 1fr; }
-      .module-item { border-right: none !important; }
-      .module-item:nth-last-child(1) { border-bottom: none; }
-      .module-item:nth-last-child(2) { border-bottom: 1px solid var(--border); }
-      .studio-photo img { min-height: 280px; }
-      .studio-text { padding: 48px 24px; }
-      .faq { padding: 72px 24px; }
-      .final-cta { padding: 80px 24px; }
-      .site-footer { padding: 48px 24px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-      .stats-bar { padding: 32px 24px; }
-      .stats-inner { grid-template-columns: 1fr; gap: 24px; }
-      .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 24px; }
-      .stat-item:last-child { border-bottom: none; }
-    }
-
-    @media (max-width: 520px) {
-      .bonus { grid-template-columns: 1fr; }
-      .bonus-cover { max-width: 160px; }
-      .hero-form-wrap { padding: 28px 20px; }
+      .wrap, .site-header { padding-inline: 22px; }
+      .hl { font-size: clamp(40px, 12.5vw, 76px); }
+      .about-grid, .studio-grid, .signup-inner { grid-template-columns: 1fr; gap: 38px; }
+      .photo-block .pscene { aspect-ratio: 16/10; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+      .ben-row { grid-template-columns: 56px 1fr; gap: 16px; }
+      .bonus-grid { grid-template-columns: 1fr; gap: 34px; }
+      .bonus-cover { max-width: 210px; }
+      .mod-track { padding-inline: 22px; margin-inline: -22px; }
+      .mcard { flex-basis: 268px; }
+      .studio-photo { min-height: 320px; order: -1; }
+      .signup-copy h2 { font-size: clamp(32px, 9vw, 52px); }
+      .header-cta { display: none; }
+      .mod-head { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <span class="header-name">Emmanuel Duarte</span>
-    <a href="#form-hero" class="header-cta">Entrar na lista</a>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="header">
+    <span class="brand">Emmanuel <b>Duarte</b></span>
+    <a href="#inscricao" class="header-cta" data-magnetic>Entrar na lista</a>
   </header>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- HERO                                                  -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-overlay-bottom"></div>
-
-    <div class="hero-content">
-      <!-- LEFT: texto -->
-      <div class="hero-left">
-        <div class="hero-badge">
-          <span class="hero-badge-dot"></span>
-          <span>Lista de espera aberta</span>
-        </div>
-
-        <h1 class="serif">
-          Aprenda a<br>
-          <em>se Comunicar</em>
-        </h1>
-
-        <p class="hero-subtitle">
-          O programa completo para desenvolver comunicação clara, autêntica e de impacto — com as mesmas técnicas usadas ao vivo na Rádio Itatiaia.
-        </p>
-
-        <div class="hero-credential">
-          <span class="hero-credential-line"></span>
-          <p><strong>Emmanuel Duarte</strong> · Locutor · A voz da Rádio Itatiaia</p>
-        </div>
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="topo">
+    <div class="pscene"><div class="pbg"></div></div>
+    <div class="wrap hero-inner">
+      <span class="onair"><span class="onair-dot"></span>No ar &middot; turma fundadora</span>
+      <h1 class="hl">
+        <span class="line"><span class="w" style="animation-delay:.05s">Aprenda</span> <span class="w" style="animation-delay:.12s">a</span> <span class="w" style="animation-delay:.19s">se</span></span>
+        <span class="line"><span class="w accent" style="animation-delay:.26s">comunicar</span></span>
+      </h1>
+      <p class="hero-sub">O método de quem fala ao vivo todos os dias na Rádio Itatiaia. Clareza, presença e sem travar.</p>
+      <div class="hero-actions">
+        <a href="#inscricao" class="btn-lg" data-magnetic>Entrar na lista</a>
+        <a href="#modulos" class="link-ghost">Ver o programa <span>&rarr;</span></a>
       </div>
+    </div>
 
-      <!-- RIGHT: form -->
-      <div id="form-hero" class="hero-form-wrap">
-        <p class="form-title">Reserve seu lugar</p>
-        <p class="form-sub">Acesso antecipado + preço de fundador + guia gratuito</p>
-
-        <form id="waitlist-form" onsubmit="handleSubmit(event)">
-          <div class="form-field">
-            <input type="text" id="name" name="name" placeholder="Seu nome" required autocomplete="name" />
-          </div>
-          <div class="form-field">
-            <input type="email" id="email" name="email" placeholder="Seu melhor e-mail" required autocomplete="email" />
-          </div>
-          <button type="submit" class="btn-primary">Quero entrar na lista →</button>
-          <p class="form-note">Gratuito · Sem spam · Saia quando quiser</p>
-        </form>
-
-        <div class="success-msg" id="success">
-          <p>Você está na lista.</p>
-          <small>Acesso antecipado e condições especiais quando abrirmos as vagas.</small>
-        </div>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Aprenda a se comunicar <i>/</i> A voz da Rádio Itatiaia <i>/</i> Clareza, presença, impacto <i>/</i>&nbsp;</span>
+        <span>Aprenda a se comunicar <i>/</i> A voz da Rádio Itatiaia <i>/</i> Clareza, presença, impacto <i>/</i>&nbsp;</span>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- STATS BAR                                             -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <div class="stats-bar">
-    <div class="stats-inner">
-      <div class="stat-item">
-        <span class="stat-num">10</span>
-        <span class="stat-label">Módulos completos</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">+5h</span>
-        <span class="stat-label">De conteúdo prático</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">7</span>
-        <span class="stat-label">Dias de garantia incondicional</span>
+  <!-- ══════════ STATS ══════════ -->
+  <div class="stats">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-num mono" data-count="10">10</span>
+          <span class="stat-label">Módulos completos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num mono" data-count="5" data-prefix="+" data-suffix="h">+5h</span>
+          <span class="stat-label">De conteúdo prático</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num mono" data-count="7">7</span>
+          <span class="stat-label">Dias de garantia incondicional</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- ABOUT                                                 -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <section class="about">
-    <div class="about-photo-wrap">
-      <span class="about-photo-frame"></span>
-      <img class="about-photo" src="pagina-de-vendas/fotos/studio.jpg" alt="Emmanuel Duarte no estúdio da Rádio Itatiaia" />
-      <span class="about-gold-line"></span>
-    </div>
-
-    <div class="about-text">
-      <span class="section-label">Quem vai te ensinar</span>
-      <h2>A voz da<br><em>Rádio Itatiaia</em><br>ensina você a falar.</h2>
-
-      <p>
-        Meu nome é Emmanuel Duarte. Sou locutor e jornalista — e há anos minha voz é o que você ouve na Rádio Itatiaia.
-      </p>
-      <p>
-        Mas antes de chegar até aqui, aprendi da única forma que funciona: no erro, no microfone ao vivo, sem segunda chance. Esse curso é o que eu gostaria de ter tido quando comecei.
-      </p>
-      <p>
-        Comunicação não é dom. É técnica. E como toda técnica — ela se aprende.
-      </p>
-
-      <div class="about-badges">
-        <span class="badge-item">Voz da Rádio Itatiaia</span>
-        <span class="badge-item">Locutor profissional</span>
-        <span class="badge-item">Jornalista</span>
-        <span class="badge-item">Treinamento corporativo</span>
+  <!-- ══════════ ABOUT ══════════ -->
+  <section class="pad">
+    <div class="wrap about-grid">
+      <div class="photo-block reveal">
+        <div class="pscene"><div class="pbg" style="background-image:url('pagina-de-vendas/fotos/studio.jpg')"></div></div>
       </div>
-    </div>
-  </section>
-
-  <hr class="gold-rule" />
-
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- BENEFITS                                              -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <section class="benefits">
-    <div class="benefits-inner">
-      <span class="section-label">O que você ganha entrando na lista</span>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <span class="benefit-num">01</span>
-          <div class="benefit-title">Acesso antes de todo mundo</div>
-          <div class="benefit-text">Quem está na lista entra antes da abertura oficial. Sem concorrer por vaga.</div>
+      <div>
+        <span class="kicker reveal">Quem vai te ensinar</span>
+        <h2 class="h-section k" style="margin-top:18px;">A voz da rádio<br>ensina você a falar</h2>
+        <div class="about-body stagger">
+          <p>Meu nome é <b>Emmanuel Duarte</b>. Sou locutor e jornalista. Há anos minha voz é o que você ouve na Rádio Itatiaia.</p>
+          <p>Aprendi no único lugar que não perdoa: o microfone ao vivo, sem segunda chance. Este curso é o que eu gostaria de ter tido quando comecei.</p>
+          <p>Comunicação não é dom. É técnica. E toda técnica se aprende.</p>
         </div>
-        <div class="benefit-card">
-          <span class="benefit-num">02</span>
-          <div class="benefit-title">Preço de fundador</div>
-          <div class="benefit-text">Condições exclusivas que não existirão depois do lançamento. O preço sobe quando abre ao público.</div>
-        </div>
-        <div class="benefit-card">
-          <span class="benefit-num">03</span>
-          <div class="benefit-title">Material gratuito agora</div>
-          <div class="benefit-text">Ao entrar na lista, você recebe o guia "5 Erros que Destroem Sua Credibilidade ao Falar" — imediatamente.</div>
-        </div>
-        <div class="benefit-card">
-          <span class="benefit-num">04</span>
-          <div class="benefit-title">Conteúdo antecipado</div>
-          <div class="benefit-text">Exercícios e mini-aulas antes do programa abrir. Você já começa a evoluir.</div>
+        <div class="tags reveal">
+          <span class="tag">Voz da Rádio Itatiaia</span>
+          <span class="tag">Locutor profissional</span>
+          <span class="tag">Jornalista</span>
+          <span class="tag">Treinamento corporativo</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- BONUS LEAD MAGNET                                     -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <section class="bonus">
-    <div class="bonus-cover">
-      <img src="assets/01-cover-lead-magnet.png" alt="5 Erros que Destroem Sua Credibilidade ao Falar" />
-    </div>
-    <div>
-      <span class="bonus-label">Seu bônus gratuito ao entrar na lista</span>
-      <h3>5 Erros que Destroem Sua Credibilidade ao Falar</h3>
-      <p>Você recebe este guia imediatamente ao se inscrever. Sem custo. Sem enrolação.</p>
-      <ul class="bonus-list">
-        <li>Os 5 erros mais comuns — e como corrigir cada um</li>
-        <li>A estrutura PPP para falar com clareza em qualquer situação</li>
-        <li>A fórmula OPR para respostas diretas e de impacto</li>
-      </ul>
+  <!-- ══════════ BENEFITS ══════════ -->
+  <section class="pad" style="padding-top:0;">
+    <div class="wrap">
+      <h2 class="h-section k">O que você ganha<br>entrando na lista</h2>
+      <div class="ben-rows">
+        <div class="ben-row reveal">
+          <span class="ben-num mono">01</span>
+          <div><div class="ben-title">Acesso antes de todo mundo</div><div class="ben-text">Quem está na lista entra antes da abertura oficial, sem concorrer por vaga.</div></div>
+        </div>
+        <div class="ben-row reveal">
+          <span class="ben-num mono">02</span>
+          <div><div class="ben-title">Preço de fundador</div><div class="ben-text">Condições que não existirão depois do lançamento. O preço sobe quando abre ao público.</div></div>
+        </div>
+        <div class="ben-row reveal">
+          <span class="ben-num mono">03</span>
+          <div><div class="ben-title">Material gratuito agora</div><div class="ben-text">Você recebe na hora o guia &ldquo;5 Erros que Destroem Sua Credibilidade ao Falar&rdquo;.</div></div>
+        </div>
+        <div class="ben-row reveal">
+          <span class="ben-num mono">04</span>
+          <div><div class="ben-title">Conteúdo antecipado</div><div class="ben-text">Exercícios e mini-aulas antes do programa abrir. Você já começa a evoluir.</div></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- STAGE PROOF                                           -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <div class="stage-proof">
-    <div class="stage-proof-bg"></div>
-    <div class="stage-proof-overlay"></div>
-    <div class="stage-proof-content">
-      <div class="stage-quote">
-        <span class="quote-mark">"</span>
-        <blockquote>
-          Comunicação não é sobre falar bonito. É sobre ser ouvido.
-        </blockquote>
-        <span class="stage-quote-author">Emmanuel Duarte · A voz da Rádio Itatiaia</span>
+  <!-- ══════════ BONUS ══════════ -->
+  <section class="pad" style="padding-top:0;">
+    <div class="wrap bonus-grid reveal">
+      <div class="bonus-cover" data-tilt>
+        <img src="assets/01-cover-lead-magnet.png" alt="Guia 5 Erros que Destroem Sua Credibilidade ao Falar" />
       </div>
+      <div>
+        <span class="bonus-flag">Seu bônus gratuito ao entrar na lista</span>
+        <h3>5 erros que destroem sua credibilidade ao falar</h3>
+        <p>Você recebe este guia imediatamente ao se inscrever. Sem custo, sem enrolação.</p>
+        <ul class="checklist">
+          <li>Os 5 erros mais comuns e como corrigir cada um</li>
+          <li>A estrutura PPP para falar com clareza em qualquer situação</li>
+          <li>A fórmula OPR para respostas diretas e de impacto</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ QUOTE ══════════ -->
+  <div class="quote">
+    <div class="pscene"><div class="pbg"></div></div>
+    <div class="wrap quote-inner">
+      <blockquote class="k">Comunicação não é sobre falar bonito. <span class="accent">É sobre ser ouvido.</span></blockquote>
+      <cite class="reveal">Emmanuel Duarte, a voz da Rádio Itatiaia</cite>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- MODULES                                               -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <section class="modules">
-    <span class="section-label">O que você vai aprender</span>
-    <div class="modules-grid">
-      <div class="module-item">
-        <span class="module-num">01</span>
-        <span class="module-name">A base: comunicação é clareza, não perfeição</span>
+  <!-- ══════════ MODULES (horizontal strip) ══════════ -->
+  <section class="modules" id="modulos">
+    <div class="wrap">
+      <div class="mod-head">
+        <h2 class="h-section k">O que você<br>vai aprender</h2>
+        <div class="mod-nav">
+          <button class="mod-btn mod-prev" aria-label="Módulo anterior">&larr;</button>
+          <button class="mod-btn mod-next" aria-label="Próximo módulo">&rarr;</button>
+        </div>
       </div>
-      <div class="module-item">
-        <span class="module-num">02</span>
-        <span class="module-name">Voz — dicção, projeção, ritmo e pausa</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">03</span>
-        <span class="module-name">Comunicação não verbal: postura, olhar, gestos</span>
-        <span class="module-tag">popular</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">04</span>
-        <span class="module-name">Falar em público sem travar</span>
-        <span class="module-tag">popular</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">05</span>
-        <span class="module-name">Comunicação em reuniões e apresentações</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">06</span>
-        <span class="module-name">Como se posicionar em situações de crise</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">07</span>
-        <span class="module-name">Negociação: clareza é mais poderosa que coragem</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">08</span>
-        <span class="module-name">Treino de voz na prática: exercícios diários</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">09</span>
-        <span class="module-name">Mini estúdio em casa: como gravar com qualidade</span>
-      </div>
-      <div class="module-item">
-        <span class="module-num">10</span>
-        <span class="module-name">Media training: câmeras, microfones e aparições</span>
+    </div>
+    <div class="wrap">
+      <div class="mod-track" id="modTrack">
+        <article class="mcard"><span class="mcard-n mono">01</span><h3 class="mcard-t">A base da comunicação</h3><p class="mcard-d">Clareza, não perfeição. Por que você trava e como destravar.</p></article>
+        <article class="mcard"><span class="mcard-n mono">02</span><h3 class="mcard-t">Voz</h3><p class="mcard-d">Dicção, projeção, ritmo e pausa. O silêncio como ferramenta.</p></article>
+        <article class="mcard"><span class="mcard-n mono">03</span><h3 class="mcard-t">Comunicação não verbal</h3><p class="mcard-d">Postura, olhar e gestos. O corpo fala antes de você.</p></article>
+        <article class="mcard"><span class="mcard-n mono">04</span><h3 class="mcard-t">Falar em público</h3><p class="mcard-d">A técnica dos 3 pontos para nunca mais travar no palco.</p></article>
+        <article class="mcard"><span class="mcard-n mono">05</span><h3 class="mcard-t">Reuniões e apresentações</h3><p class="mcard-d">Como entrar numa sala sendo ouvido e convencer com estrutura.</p></article>
+        <article class="mcard"><span class="mcard-n mono">06</span><h3 class="mcard-t">Comunicação em crise</h3><p class="mcard-d">O que fazer nos primeiros 60 segundos quando tudo aperta.</p></article>
+        <article class="mcard"><span class="mcard-n mono">07</span><h3 class="mcard-t">Negociação</h3><p class="mcard-d">Clareza é mais poderosa que coragem improvisada.</p></article>
+        <article class="mcard"><span class="mcard-n mono">08</span><h3 class="mcard-t">Treino de voz</h3><p class="mcard-d">Exercícios diários e um plano prático de 30 dias.</p></article>
+        <article class="mcard"><span class="mcard-n mono">09</span><h3 class="mcard-t">Mini estúdio em casa</h3><p class="mcard-d">Como gravar com qualidade usando o que você já tem.</p></article>
+        <article class="mcard"><span class="mcard-n mono">10</span><h3 class="mcard-t">Media training</h3><p class="mcard-d">Câmeras, microfones e como se portar em aparições.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- STUDIO SECTION                                        -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <div class="studio-section">
-    <div class="studio-inner">
-      <div class="studio-photo">
-        <img src="pagina-de-vendas/fotos/console.jpg" alt="Emmanuel Duarte no console do estúdio" />
-        <div class="studio-photo-overlay"></div>
-      </div>
+  <!-- ══════════ STUDIO ══════════ -->
+  <div class="studio">
+    <div class="studio-grid">
       <div class="studio-text">
-        <span class="section-label">Por que aprender com quem faz</span>
-        <h2>Anos de microfone.<br><em>Agora em formato</em><br>de curso.</h2>
-        <p>
-          Não é teoria de professor que nunca saiu da sala de aula. É o que funciona ao vivo, onde não há segunda chance, onde cada palavra tem peso.
-        </p>
-        <p>
-          A Rádio Itatiaia não perdoa hesitação. E é exatamente por isso que o que eu ensino funciona em reuniões, apresentações, entrevistas e qualquer situação onde você precisa ser ouvido.
-        </p>
-        <p>
-          Você vai aprender comunicação de quem a pratica todo dia como profissão.
-        </p>
+        <h2 class="k">Anos de microfone.<br>Agora em <span class="accent">curso</span>.</h2>
+        <div class="stagger">
+          <p>Não é teoria de quem nunca saiu da sala de aula. É o que funciona ao vivo, onde cada palavra tem peso e não há segunda chance.</p>
+          <p>A rádio não perdoa hesitação. Por isso o que eu ensino funciona em reuniões, apresentações, entrevistas e qualquer situação em que você precisa ser ouvido.</p>
+          <p>Você aprende comunicação de quem a pratica todo dia como profissão.</p>
+        </div>
       </div>
+      <div class="studio-photo"><div class="pscene"><div class="pbg"></div></div></div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- FAQ                                                   -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <section class="faq">
-    <span class="section-label">Perguntas frequentes</span>
-
-    <div class="faq-item">
-      <p class="faq-q">Quando o programa vai abrir?</p>
-      <p class="faq-a">A data de abertura será comunicada primeiro para quem está na lista de espera. Entre agora para garantir prioridade e preço de fundador.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Para quem é esse programa?</p>
-      <p class="faq-a">Para profissionais que precisam falar em reuniões ou apresentações, líderes que precisam ser ouvidos, criadores de conteúdo, ou quem simplesmente trava na hora de falar. Começa do zero.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Preciso ter alguma experiência prévia?</p>
-      <p class="faq-a">Nenhuma. O programa foi desenhado para quem está começando do zero tanto quanto para quem já fala em público mas quer refinar.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">O conteúdo vai ficar disponível para sempre?</p>
-      <p class="faq-a">Sim. Depois de comprar, o acesso é vitalício. Você assiste no seu ritmo e pode rever quantas vezes quiser, de qualquer dispositivo.</p>
-    </div>
-    <div class="faq-item">
-      <p class="faq-q">Entrar na lista me obriga a comprar?</p>
-      <p class="faq-a">Não. A lista é gratuita e sem compromisso. Você recebe as informações primeiro e decide se o programa faz sentido para você.</p>
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="pad">
+    <div class="wrap">
+      <h2 class="h-section k" style="text-align:center;">Perguntas frequentes</h2>
+      <div class="faq-list reveal">
+        <details>
+          <summary>Quando o programa vai abrir?</summary>
+          <p class="faq-a">A data de abertura será comunicada primeiro para quem está na lista de espera. Entre agora para garantir prioridade e preço de fundador.</p>
+        </details>
+        <details>
+          <summary>Para quem é esse programa?</summary>
+          <p class="faq-a">Para profissionais que precisam falar em reuniões ou apresentações, líderes que precisam ser ouvidos, criadores de conteúdo, ou quem simplesmente trava na hora de falar. Começa do zero.</p>
+        </details>
+        <details>
+          <summary>Preciso ter alguma experiência prévia?</summary>
+          <p class="faq-a">Nenhuma. O programa foi desenhado tanto para quem está começando do zero quanto para quem já fala em público e quer refinar.</p>
+        </details>
+        <details>
+          <summary>O conteúdo vai ficar disponível para sempre?</summary>
+          <p class="faq-a">Sim. Depois de comprar, o acesso é vitalício. Você assiste no seu ritmo e revê quantas vezes quiser, de qualquer dispositivo.</p>
+        </details>
+        <details>
+          <summary>Entrar na lista me obriga a comprar?</summary>
+          <p class="faq-a">Não. A lista é gratuita e sem compromisso. Você recebe as informações primeiro e decide se o programa faz sentido para você.</p>
+        </details>
+      </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- FINAL CTA                                             -->
-  <!-- ══════════════════════════════════════════════════════ -->
-  <section class="final-cta">
-    <div class="final-cta-bg"></div>
-    <div class="final-cta-overlay"></div>
-
-    <div class="final-cta-content">
-      <h2>Reserve seu<br><em>lugar agora.</em></h2>
-      <p>A lista de espera é gratuita. Quem entra primeiro, sai na frente.</p>
-
-      <div class="final-form-wrap">
-        <form id="waitlist-form-2" onsubmit="handleSubmit2(event)">
-          <div class="form-field">
-            <input type="text" id="name2" name="name" placeholder="Seu nome" required autocomplete="name" />
+  <!-- ══════════ INSCRIÇÃO ══════════ -->
+  <section class="signup" id="inscricao">
+    <div class="pscene"><div class="pbg"></div></div>
+    <div class="wrap signup-inner">
+      <div class="signup-copy">
+        <h2 class="k">Garanta seu<br>lugar agora</h2>
+        <p>A lista é gratuita e sem compromisso. Quem entra primeiro recebe o preço de fundador e sai na frente.</p>
+      </div>
+      <div class="card">
+        <p class="card-title">Reserve seu lugar</p>
+        <p class="card-sub">Acesso antecipado, preço de fundador e o guia gratuito na hora.</p>
+        <form id="waitlist-form" onsubmit="handleSubmit(event)">
+          <div class="field">
+            <label for="name">Seu nome</label>
+            <input type="text" id="name" name="name" placeholder="Como você se chama" required autocomplete="name" />
           </div>
-          <div class="form-field">
-            <input type="email" id="email2" name="email" placeholder="Seu melhor e-mail" required autocomplete="email" />
+          <div class="field">
+            <label for="email">Seu melhor e-mail</label>
+            <input type="email" id="email" name="email" placeholder="voce@email.com" required autocomplete="email" />
           </div>
-          <button type="submit" class="btn-primary">Entrar na lista de espera →</button>
-          <p class="form-note">Gratuito · Sem spam · Saia quando quiser</p>
+          <button type="submit" class="btn">Entrar na lista</button>
+          <p class="form-note">Gratuito. Sem spam. Saia quando quiser.</p>
         </form>
-        <div class="success-msg" id="success2">
-          <p>Você está na lista.</p>
-          <small>Acesso antecipado e condições especiais quando abrirmos as vagas.</small>
+        <div class="success" id="success">
+          <b>Você está na lista.</b>
+          <span>Acesso antecipado e condições de fundador quando abrirmos as vagas.</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════ -->
-  <!-- FOOTER                                                -->
-  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- ══════════ FOOTER ══════════ -->
   <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-name">
-        Emmanuel Duarte
-        <span>A voz da Rádio Itatiaia</span>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-brand">Emmanuel Duarte<span>A voz da Rádio Itatiaia</span></div>
+        <nav class="footer-links">
+          <a href="https://www.instagram.com/emmanuel_duarte.duarte/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@locutorduarte" target="_blank" rel="noopener">TikTok</a>
+          <a href="http://www.locutoremmanuel.com.br" target="_blank" rel="noopener">locutoremmanuel.com.br</a>
+        </nav>
       </div>
-      <div class="footer-links">
-        <a href="https://www.instagram.com/emmanuel_duarte.duarte/" target="_blank">Instagram</a>
-        <a href="https://www.tiktok.com/@locutorduarte" target="_blank">TikTok</a>
-        <a href="http://www.locutoremmanuel.com.br" target="_blank">locutoremmanuel.com.br</a>
-      </div>
+      <p class="footer-copy">© 2026 Emmanuel Duarte. Todos os direitos reservados.</p>
     </div>
-    <p class="footer-copy">© 2026 Emmanuel Duarte · Todos os direitos reservados</p>
   </footer>
 
   <script>
-    // ─── Cole aqui a URL do Google Apps Script após configurar ───
+    var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ─── Captura de leads (Google Apps Script) ─── */
     var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6MiVLoBXSiAPzBBG48mIqZba_2JASjcIEuPYJaTl057mRKedRrthb2XSWNLBeAi241A/exec';
-
     function enviarLead(nome, email, origem) {
-      if (SCRIPT_URL === 'COLE_SUA_URL_AQUI') return; // ainda não configurado
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome: nome, email: email, origem: origem })
-      }).catch(function() {}); // no-cors = sem resposta, silencia erro
+      if (SCRIPT_URL === 'COLE_SUA_URL_AQUI') return;
+      fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nome: nome, email: email, origem: origem }) }).catch(function () {});
     }
-
     function handleSubmit(e) {
       e.preventDefault();
-      var nome  = document.getElementById('name').value.trim();
+      var nome = document.getElementById('name').value.trim();
       var email = document.getElementById('email').value.trim();
-      enviarLead(nome, email, 'Hero - Lista de Espera');
+      enviarLead(nome, email, 'Lista de Espera');
       document.getElementById('waitlist-form').style.display = 'none';
       document.getElementById('success').classList.add('show');
     }
 
-    function handleSubmit2(e) {
-      e.preventDefault();
-      var nome  = document.getElementById('name2').value.trim();
-      var email = document.getElementById('email2').value.trim();
-      enviarLead(nome, email, 'CTA Final - Lista de Espera');
-      document.getElementById('waitlist-form-2').style.display = 'none';
-      document.getElementById('success2').classList.add('show');
+    /* ─── Header border on scroll (rAF-throttled, passive) ─── */
+    (function () {
+      var header = document.getElementById('header'), ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) { window.requestAnimationFrame(function () { header.classList.toggle('scrolled', window.scrollY > 12); ticking = false; }); ticking = true; }
+      }, { passive: true });
+    })();
+
+    /* ─── Reveal + kinetic headings + stagger (IntersectionObserver) ─── */
+    (function () {
+      var els = document.querySelectorAll('.reveal, .k, .stagger');
+      if (REDUCE || !('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { threshold: 0.18, rootMargin: '0px 0px -7% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ─── Count-up stats ─── */
+    (function () {
+      var nums = document.querySelectorAll('.stat-num');
+      function run(el) {
+        var target = +el.dataset.count, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+        if (REDUCE) { el.textContent = pre + target + suf; return; }
+        var dur = 1100, t0 = performance.now();
+        (function tick(now) {
+          var p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+          el.textContent = pre + Math.round(target * e) + suf;
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      }
+      if (!('IntersectionObserver' in window)) { nums.forEach(run); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { run(en.target); io.unobserve(en.target); } });
+      }, { threshold: 0.6 });
+      nums.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ─── Modules: drag-to-scroll + arrows ─── */
+    (function () {
+      var track = document.getElementById('modTrack'); if (!track) return;
+      var down = false, sx = 0, sl = 0, moved = 0;
+      track.addEventListener('pointerdown', function (e) { down = true; moved = 0; sx = e.clientX; sl = track.scrollLeft; track.classList.add('drag'); });
+      track.addEventListener('pointermove', function (e) { if (!down) return; var dx = e.clientX - sx; moved = Math.abs(dx); track.scrollLeft = sl - dx; });
+      function up() { down = false; track.classList.remove('drag'); }
+      track.addEventListener('pointerup', up);
+      track.addEventListener('pointerleave', up);
+      track.addEventListener('pointercancel', up);
+      var card = track.querySelector('.mcard');
+      var step = card ? card.offsetWidth + 20 : 340;
+      var next = document.querySelector('.mod-next'), prev = document.querySelector('.mod-prev');
+      if (next) next.addEventListener('click', function () { track.scrollBy({ left: step, behavior: REDUCE ? 'auto' : 'smooth' }); });
+      if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step, behavior: REDUCE ? 'auto' : 'smooth' }); });
+    })();
+
+    /* ─── Magnetic buttons ─── */
+    if (!REDUCE && window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('[data-magnetic]').forEach(function (b) {
+        b.addEventListener('pointermove', function (e) {
+          var r = b.getBoundingClientRect();
+          var x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+          b.style.transform = 'translate(' + x * 0.28 + 'px,' + y * 0.4 + 'px)';
+        });
+        b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+      });
+
+      /* ─── Tilt on bonus cover ─── */
+      var tilt = document.querySelector('[data-tilt]');
+      if (tilt) {
+        tilt.addEventListener('pointermove', function (e) {
+          var r = tilt.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
+          tilt.style.transform = 'perspective(900px) rotateY(' + px * 9 + 'deg) rotateX(' + (-py * 9) + 'deg)';
+        });
+        tilt.addEventListener('pointerleave', function () { tilt.style.transform = ''; });
+      }
     }
   </script>
 
