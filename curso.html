@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aprenda a se Comunicar | O Curso de Emmanuel Duarte, a voz da Rádio Itatiaia</title>
+  <meta name="description" content="O curso completo de comunicação de Emmanuel Duarte, a voz da Rádio Itatiaia. Do nervosismo ao palco, da reunião à entrevista. De R$497 por R$297 ou 12x R$29,70." />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:#0a0a0b; --ink-2:#111113; --surface:#141416;
+      --border:#26262a; --border-2:#34343a;
+      --white:#f4f4f2; --mute:#9a9aa2; --mute-2:#6c6c74;
+      --red:#ff4438; --red-deep:#d8311f; --green:#3ad29f;
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; background:var(--ink); }
+    body {
+      font-family:'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif;
+      background:transparent; color:var(--white); line-height:1.6; font-size:16px;
+      -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    .mono { font-family:'SF Mono',ui-monospace,'JetBrains Mono','Cascadia Code',Menlo,monospace; }
+    .accent { color:var(--red); }
+    h1,h2,h3 { letter-spacing:-0.025em; line-height:1.0; }
+
+    /* radio-wave bg + spotlight + eq (shared system) */
+    .bg-waves { position:fixed; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; display:block; }
+    .spotlight { position:relative; overflow:hidden; }
+    .spotlight::after { content:""; position:absolute; inset:0; z-index:1; background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%), rgba(255,68,56,0.13), transparent 62%); opacity:0; transition:opacity 0.35s var(--ease); pointer-events:none; }
+    .spotlight:hover::after { opacity:1; }
+    .spotlight > * { position:relative; z-index:2; }
+    .eq { display:inline-flex; align-items:flex-end; gap:2px; height:13px; }
+    .eq i { width:2px; height:100%; background:var(--red); transform-origin:bottom; transform:scaleY(0.4); animation:eq 0.9s var(--ease) infinite; }
+    .eq i:nth-child(2){animation-delay:.16s} .eq i:nth-child(3){animation-delay:.32s} .eq i:nth-child(4){animation-delay:.48s}
+    @keyframes eq { 0%,100%{transform:scaleY(0.35)} 50%{transform:scaleY(1)} }
+
+    .kicker { font-size:11px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--red); display:inline-flex; align-items:center; gap:10px; }
+    .kicker::before { content:""; width:22px; height:2px; background:var(--red); }
+
+    .wrap { max-width:1240px; margin:0 auto; padding-inline:40px; }
+    .narrow { max-width:880px; }
+    section { position:relative; }
+    .pad { padding-block:clamp(72px,10vw,128px); }
+    .h-section { font-size:clamp(30px,4.4vw,56px); font-weight:800; text-transform:uppercase; letter-spacing:-0.03em; line-height:0.95; }
+
+    .progress { position:fixed; inset:0 0 auto 0; height:3px; background:var(--red); transform:scaleX(0); transform-origin:left; z-index:200; }
+
+    /* header */
+    .site-header { position:fixed; inset:0 0 auto 0; z-index:150; height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(10,10,11,0.6); backdrop-filter:saturate(140%) blur(14px); border-bottom:1px solid transparent; transition:border-color .3s, background .3s; }
+    .site-header.scrolled { border-bottom-color:var(--border); background:rgba(10,10,11,0.85); }
+    .brand { font-size:13px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; }
+    .brand b { color:var(--red); }
+    .header-cta { font-size:12px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink); background:var(--red); border:1px solid var(--red); padding:10px 18px; will-change:transform; transition:background .18s, transform .2s var(--ease); }
+    .header-cta:hover { background:var(--red-deep); border-color:var(--red-deep); }
+
+    /* parallax */
+    .pscene { position:absolute; inset:0; overflow:hidden; }
+    .pbg { position:absolute; inset:-19% 0; width:100%; height:138%; }
+
+    /* hero */
+    .hero { position:relative; min-height:96vh; display:flex; align-items:center; padding:108px 0 76px; overflow:hidden; }
+    .hero .pbg { background:url('pagina-de-vendas/fotos/hero.jpg') center 18%/cover no-repeat; filter:grayscale(1) contrast(1.15) brightness(0.34); }
+    .hero .pscene::after { content:""; position:absolute; inset:0; background:linear-gradient(100deg, rgba(10,10,11,0.95) 0%, rgba(10,10,11,0.72) 46%, rgba(10,10,11,0.34) 100%), linear-gradient(to bottom, transparent 60%, var(--ink) 100%); }
+    .hero-inner { position:relative; z-index:2; width:100%; max-width:900px; }
+    .onair { display:inline-flex; align-items:center; gap:11px; font-size:11px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; }
+    .hl { margin:24px 0 0; font-weight:800; text-transform:uppercase; letter-spacing:-0.035em; line-height:0.9; font-size:clamp(44px,6.4vw,96px); }
+    .hl .line { display:block; overflow:hidden; padding-bottom:0.04em; }
+    .hl .w { display:inline-block; transform:translateY(112%); }
+    .hero-sub { font-size:clamp(15px,1.6vw,19px); color:var(--mute); line-height:1.6; margin-top:24px; max-width:480px; }
+    .hero-actions { display:flex; align-items:center; gap:26px; margin-top:36px; flex-wrap:wrap; }
+    .link-ghost { font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); display:inline-flex; align-items:center; gap:9px; border-bottom:1px solid var(--border-2); padding-bottom:4px; transition:border-color .2s,color .2s; }
+    .link-ghost:hover { color:var(--red); border-color:var(--red); }
+    .link-ghost span { transition:transform .25s var(--ease); }
+    .link-ghost:hover span { transform:translateX(5px); }
+
+    .btn { display:inline-block; padding:17px 30px; background:var(--red); color:var(--ink); font-size:14px; font-weight:800; font-family:inherit; letter-spacing:0.05em; text-transform:uppercase; border:1px solid var(--red); cursor:pointer; will-change:transform; transition:background .18s, transform .25s var(--ease); }
+    .btn:hover { background:var(--red-deep); border-color:var(--red-deep); }
+    .btn:active { transform:translateY(1px); }
+    .btn-block { display:block; width:100%; text-align:center; }
+
+    /* stats / trust band */
+    .stats { border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+    .stat { padding:34px 30px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:8px; }
+    .stat:last-child { border-right:none; }
+    .stat-num { font-size:clamp(32px,3.4vw,42px); font-weight:800; color:var(--red); line-height:1; letter-spacing:-0.03em; }
+    .stat-label { font-size:12px; color:var(--mute); letter-spacing:0.06em; text-transform:uppercase; }
+
+    /* reveal motion */
+    .k { clip-path:inset(0 0 102% 0); transform:translateY(0.22em); transition:clip-path .85s var(--ease), transform .85s var(--ease); }
+    .k.in { clip-path:inset(0 0 -12% 0); transform:none; }
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.in { opacity:1; transform:none; }
+    .stagger > * { opacity:0; transform:translateY(22px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+    .stagger.in > * { opacity:1; transform:none; }
+    .stagger.in > *:nth-child(2){transition-delay:.07s} .stagger.in > *:nth-child(3){transition-delay:.14s}
+    .stagger.in > *:nth-child(4){transition-delay:.21s} .stagger.in > *:nth-child(5){transition-delay:.28s} .stagger.in > *:nth-child(6){transition-delay:.35s}
+
+    /* fit (para quem é / não é) */
+    .fit-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:48px; }
+    .fit-col { border:1px solid var(--border); padding:38px 34px; background:rgba(20,20,22,0.5); }
+    .fit-col h3 { font-size:20px; font-weight:800; letter-spacing:-0.01em; margin-bottom:24px; }
+    .fit-col.yes h3 { color:var(--white); }
+    .fit-col.no h3 { color:var(--mute); }
+    .fit-list { list-style:none; display:grid; gap:15px; }
+    .fit-list li { position:relative; padding-left:32px; font-size:15px; line-height:1.55; color:var(--mute); }
+    .fit-list li b { color:var(--white); font-weight:600; }
+    .fit-list li::before { position:absolute; left:0; top:-1px; font-size:16px; font-weight:800; }
+    .fit-col.yes .fit-list li::before { content:"+"; color:var(--red); }
+    .fit-col.no .fit-list li::before { content:"\00d7"; color:var(--mute-2); }
+
+    /* problem (full-bleed parallax statement) */
+    .problem { position:relative; overflow:hidden; }
+    .problem .pbg { background:url('pagina-de-vendas/fotos/palco.jpg') center 30%/cover no-repeat; filter:grayscale(1) contrast(1.2) brightness(0.3); }
+    .problem .pscene::after { content:""; position:absolute; inset:0; background:linear-gradient(95deg, rgba(10,10,11,0.94) 0%, rgba(10,10,11,0.7) 55%, rgba(10,10,11,0.4) 100%); }
+    .problem-inner { position:relative; z-index:2; padding-block:clamp(80px,11vw,140px); }
+    .problem-inner p { font-size:clamp(18px,2vw,24px); font-weight:600; line-height:1.5; color:var(--white); max-width:760px; margin-bottom:22px; letter-spacing:-0.01em; }
+    .problem-inner p.dim { color:var(--mute); font-weight:400; font-size:clamp(15px,1.5vw,17px); }
+    .problem-inner .punch { color:var(--red); }
+
+    /* instructor */
+    .who-grid { display:grid; grid-template-columns:0.82fr 1.18fr; gap:72px; align-items:center; }
+    .photo-block { position:relative; overflow:hidden; }
+    .photo-block .pscene { position:relative; aspect-ratio:3/4; }
+    .photo-block .pbg { background-size:cover; background-position:center top; filter:grayscale(1) contrast(1.08) brightness(0.9); }
+    .photo-block::before { content:""; position:absolute; left:-14px; top:-14px; width:64px; height:64px; border-left:2px solid var(--red); border-top:2px solid var(--red); z-index:2; }
+    .who-body { margin-top:22px; }
+    .who-body p { color:var(--mute); font-size:16px; line-height:1.75; margin-bottom:16px; max-width:60ch; }
+    .who-body p b { color:var(--white); font-weight:700; }
+    .badges { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:28px; }
+    .badge { display:flex; align-items:flex-start; gap:10px; font-size:14px; color:var(--white); }
+    .badge::before { content:"\2713"; color:var(--red); font-weight:800; flex-shrink:0; }
+
+    /* modules grid */
+    .mod-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:48px; }
+    .mcard { background:var(--surface); border:1px solid var(--border); padding:28px 26px; transition:border-color .25s, transform .25s var(--ease); }
+    .mcard:hover { border-color:var(--red); transform:translateY(-4px); }
+    .mcard-top { display:flex; align-items:baseline; gap:14px; margin-bottom:12px; }
+    .mcard-n { font-size:13px; font-weight:800; color:var(--red); }
+    .mcard-t { font-size:19px; font-weight:800; letter-spacing:-0.01em; }
+    .mcard-d { font-size:14px; color:var(--mute); line-height:1.65; }
+
+    /* bonus */
+    .bonus-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:48px; }
+    .bcard { border:1px solid var(--border); padding:36px 32px; background:rgba(20,20,22,0.5); }
+    .bcard.bump { border-top:3px solid var(--red); }
+    .bcard-tag { font-size:11px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); margin-bottom:16px; display:inline-block; }
+    .bcard h3 { font-size:22px; font-weight:800; letter-spacing:-0.01em; line-height:1.15; margin-bottom:12px; }
+    .bcard p { font-size:15px; color:var(--mute); line-height:1.7; }
+    .bcard .price-mini { margin-top:18px; font-size:14px; font-weight:700; color:var(--white); }
+    .bcard .price-mini s { color:var(--mute-2); }
+
+    /* testimonials */
+    .tgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:48px; }
+    .tcard { border:1px solid var(--border); padding:30px 28px; background:rgba(20,20,22,0.5); display:flex; flex-direction:column; gap:18px; }
+    .tcard blockquote { font-size:16px; line-height:1.55; color:var(--white); font-weight:500; }
+    .tcard .tq { color:var(--red); font-size:34px; line-height:0.4; font-weight:800; }
+    .tcard cite { font-style:normal; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-top:auto; }
+
+    /* pricing */
+    .pricing { position:relative; overflow:hidden; }
+    .pricing .pbg { background:url('pagina-de-vendas/fotos/console.jpg') center/cover no-repeat; filter:grayscale(1) contrast(1.2) brightness(0.24); }
+    .pricing .pscene::after { content:""; position:absolute; inset:0; background:linear-gradient(to bottom, var(--ink), rgba(10,10,11,0.7) 45%, rgba(10,10,11,0.7) 55%, var(--ink)); }
+    .pricing-inner { position:relative; z-index:2; max-width:640px; margin:0 auto; }
+    .price-card { background:rgba(18,18,20,0.92); border:1px solid var(--border); border-top:3px solid var(--red); padding:48px 44px; text-align:center; backdrop-filter:blur(10px); }
+    .price-card .anchor { font-size:18px; color:var(--mute-2); }
+    .price-card .anchor s { text-decoration-thickness:2px; }
+    .price-now { font-size:clamp(56px,9vw,84px); font-weight:800; color:var(--white); line-height:1; letter-spacing:-0.04em; margin:6px 0 4px; }
+    .price-now small { font-size:0.4em; color:var(--red); vertical-align:0.5em; font-weight:800; }
+    .price-install { font-size:16px; color:var(--mute); margin-bottom:28px; }
+    .price-install b { color:var(--white); font-weight:700; }
+    .price-meta { display:flex; justify-content:center; gap:26px; flex-wrap:wrap; margin-top:24px; }
+    .price-meta span { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); display:inline-flex; align-items:center; gap:7px; }
+    .price-meta span::before { content:"\2713"; color:var(--red); font-weight:800; }
+
+    /* guarantee band */
+    .guarantee { border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .guarantee-inner { display:grid; grid-template-columns:120px 1fr; gap:34px; align-items:center; padding-block:clamp(48px,7vw,80px); }
+    .seal { width:120px; height:120px; border:2px solid var(--red); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+    .seal b { font-size:34px; font-weight:800; color:var(--red); line-height:1; }
+    .seal span { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mute); margin-top:4px; }
+    .guarantee-text h3 { font-size:clamp(22px,2.6vw,30px); font-weight:800; text-transform:uppercase; letter-spacing:-0.02em; margin-bottom:14px; }
+    .guarantee-text p { color:var(--mute); font-size:15px; line-height:1.7; max-width:62ch; }
+
+    /* faq */
+    .faq-list { max-width:820px; margin:40px auto 0; }
+    details { border-bottom:1px solid var(--border); }
+    details summary { list-style:none; cursor:pointer; padding:26px 0; font-size:18px; font-weight:700; letter-spacing:-0.01em; display:flex; justify-content:space-between; align-items:center; gap:24px; }
+    details summary::-webkit-details-marker { display:none; }
+    details summary::after { content:"+"; color:var(--red); font-size:26px; font-weight:400; line-height:1; flex-shrink:0; transition:transform .25s var(--ease); }
+    details[open] summary::after { content:"\2212"; }
+    .faq-a { padding:0 0 26px; color:var(--mute); font-size:15px; line-height:1.75; max-width:70ch; }
+
+    /* final cta */
+    .final { position:relative; overflow:hidden; padding-block:clamp(90px,12vw,150px); text-align:center; }
+    .final .pbg { background:url('pagina-de-vendas/fotos/hero.jpg') center 34%/cover no-repeat; filter:grayscale(1) contrast(1.2) brightness(0.22); }
+    .final .pscene::after { content:""; position:absolute; inset:0; background:linear-gradient(to bottom, var(--ink), rgba(10,10,11,0.66) 42%, rgba(10,10,11,0.66) 58%, var(--ink)); }
+    .final-inner { position:relative; z-index:2; max-width:660px; margin:0 auto; }
+    .final-inner h2 { font-size:clamp(34px,5vw,64px); font-weight:800; text-transform:uppercase; letter-spacing:-0.035em; line-height:0.94; }
+    .final-inner p { color:var(--mute); font-size:16px; margin:20px 0 36px; }
+    .final-note { font-size:12px; color:var(--mute-2); margin-top:18px; letter-spacing:0.04em; }
+
+    /* footer */
+    .site-footer { border-top:1px solid var(--border); padding-block:44px; }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+    .footer-brand { font-size:16px; font-weight:800; text-transform:uppercase; letter-spacing:-0.01em; }
+    .footer-brand span { display:block; font-size:11px; font-weight:700; letter-spacing:0.14em; color:var(--red); margin-top:5px; }
+    .footer-links { display:flex; gap:26px; }
+    .footer-links a { font-size:13px; color:var(--mute); transition:color .18s; }
+    .footer-links a:hover { color:var(--red); }
+    .footer-copy { font-size:11px; color:var(--mute-2); margin-top:28px; letter-spacing:0.04em; line-height:1.7; }
+
+    /* scroll-driven (progressive enhancement) */
+    @media (prefers-reduced-motion:no-preference) {
+      @supports (animation-timeline:scroll()) {
+        .progress { animation:prog linear both; animation-timeline:scroll(root); }
+        @keyframes prog { to { transform:scaleX(1); } }
+      }
+      @supports (animation-timeline:view()) {
+        .pbg { animation:parallax linear both; animation-timeline:view(); animation-range:cover; }
+        @keyframes parallax { from { transform:translateY(-13%); } to { transform:translateY(13%); } }
+      }
+      .hl .w { animation:rise .95s var(--ease) forwards; }
+      @keyframes rise { to { transform:translateY(0); } }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation:none!important; transition:none!important; }
+      .reveal,.stagger>* { opacity:1; transform:none; }
+      .k { clip-path:none; transform:none; } .hl .w { transform:none; }
+      .progress { display:none; } html { scroll-behavior:auto; }
+    }
+
+    /* responsive */
+    @media (max-width:900px) {
+      .wrap,.site-header { padding-inline:22px; }
+      .hl { font-size:clamp(38px,11.5vw,68px); }
+      .fit-grid,.who-grid,.mod-grid,.bonus-grid,.tgrid { grid-template-columns:1fr; }
+      .stats-grid { grid-template-columns:1fr 1fr; }
+      .stat:nth-child(2){border-right:none} .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--border)}
+      .badges { grid-template-columns:1fr; }
+      .photo-block .pscene { aspect-ratio:16/10; }
+      .who-grid { gap:36px; }
+      .guarantee-inner { grid-template-columns:1fr; gap:24px; justify-items:center; text-align:center; }
+      .guarantee-text p { text-align:left; }
+      .price-card { padding:38px 24px; }
+      .header-cta { padding:9px 14px; font-size:11px; }
+      .brand { font-size:11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas class="bg-waves" id="bgWaves" aria-hidden="true"></canvas>
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- TODO: trocar pelo link real do checkout Kiwify quando configurado -->
+  <header class="site-header" id="header">
+    <span class="brand">Emmanuel <b>Duarte</b></span>
+    <a href="https://pay.kiwify.com.br/COLE-SEU-CHECKOUT" class="header-cta" data-magnetic>Quero o curso</a>
+  </header>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="topo">
+    <div class="pscene"><div class="pbg"></div></div>
+    <div class="wrap hero-inner">
+      <span class="onair"><span class="eq"><i></i><i></i><i></i><i></i></span>O curso completo &middot; do zero ao avançado</span>
+      <h1 class="hl">
+        <span class="line"><span class="w" style="animation-delay:.05s">Aprenda</span> <span class="w" style="animation-delay:.12s">a</span> <span class="w" style="animation-delay:.19s">se</span></span>
+        <span class="line"><span class="w accent" style="animation-delay:.26s">comunicar</span></span>
+      </h1>
+      <p class="hero-sub">Do nervosismo ao microfone. Da reunião ao palco. O método que eu uso todo dia na Rádio Itatiaia.</p>
+      <div class="hero-actions">
+        <a href="https://pay.kiwify.com.br/COLE-SEU-CHECKOUT" class="btn" data-magnetic>Quero o curso</a>
+        <a href="#modulos" class="link-ghost">Ver o conteúdo <span>&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TRUST BAND ══════════ -->
+  <div class="stats">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat"><span class="stat-num mono" data-count="10">10</span><span class="stat-label">Módulos completos</span></div>
+        <div class="stat"><span class="stat-num mono" data-count="5" data-prefix="+" data-suffix="h">+5h</span><span class="stat-label">De conteúdo prático</span></div>
+        <div class="stat"><span class="stat-num mono" data-count="7">7</span><span class="stat-label">Dias de garantia</span></div>
+        <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Acesso vitalício</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PARA QUEM É ══════════ -->
+  <section class="pad">
+    <div class="wrap">
+      <span class="kicker reveal">Antes de tudo</span>
+      <h2 class="h-section k" style="margin-top:18px;">Esse curso é<br>pra você?</h2>
+      <div class="fit-grid">
+        <div class="fit-col yes reveal">
+          <h3>É pra você se...</h3>
+          <ul class="fit-list">
+            <li>Você <b>trava</b> quando sabe que precisa falar para um grupo</li>
+            <li>Suas boas ideias chegam <b>truncadas</b>, sem convencer</li>
+            <li>Você é <b>ignorado em reuniões</b> mesmo quando está certo</li>
+            <li>Quer criar conteúdo em vídeo, mas a fala te trai</li>
+            <li>Tem uma <b>entrevista, palestra ou apresentação</b> importante chegando</li>
+            <li>Quer usar a própria voz <b>com intenção</b>, não só no instinto</li>
+          </ul>
+        </div>
+        <div class="fit-col no reveal">
+          <h3>NÃO é pra você se...</h3>
+          <ul class="fit-list">
+            <li>Você quer fórmulas de "falar bonito" sem praticar</li>
+            <li>Procura coaching de autoajuda disfarçado de comunicação</li>
+            <li>Não tem 20 minutos por dia para estudar e treinar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ O PROBLEMA ══════════ -->
+  <section class="problem">
+    <div class="pscene"><div class="pbg"></div></div>
+    <div class="wrap problem-inner">
+      <h2 class="h-section k" style="margin-bottom:34px;">Ninguém te ensinou<br>a se comunicar</h2>
+      <p class="reveal">Na escola você aprendeu matemática, história, ciências. Mas ninguém te ensinou a estruturar uma fala sob pressão, a usar a voz como ferramenta de persuasão, ou o que fazer com o nervosismo antes de uma apresentação importante.</p>
+      <p class="dim reveal">O resultado: profissionais brilhantes sendo ignorados em reuniões. Líderes com ótimas ideias que não chegam aos ouvidos certos. Criadores com muito a dizer que perdem a audiência nos primeiros 10 segundos.</p>
+      <p class="reveal">Comunicação não é dom. <span class="punch">É técnica. E toda técnica se aprende.</span></p>
+    </div>
+  </section>
+
+  <!-- ══════════ QUEM SOU EU ══════════ -->
+  <section class="pad">
+    <div class="wrap who-grid">
+      <div class="photo-block reveal">
+        <div class="pscene"><div class="pbg" style="background-image:url('pagina-de-vendas/fotos/studio.jpg')"></div></div>
+      </div>
+      <div>
+        <span class="kicker reveal">Quem vai te ensinar</span>
+        <h2 class="h-section k" style="margin-top:18px;">Por que ouvir<br>de mim sobre isso</h2>
+        <div class="who-body stagger">
+          <p>Meu nome é <b>Emmanuel Duarte</b>. Sou locutor da Rádio Itatiaia e jornalista.</p>
+          <p>Já passei por situações que paralisariam muita gente: microfone ao vivo sem roteiro, entrevistas imprevisíveis, momentos de crise onde cada palavra conta.</p>
+          <p>O que aprendi não foi em academia. Foi no microfone, no erro, na repetição e na escuta de dezenas de profissionais que me passaram seus melhores fundamentos. Este curso é o que eu gostaria de ter tido quando comecei.</p>
+        </div>
+        <div class="badges reveal">
+          <span class="badge">Voz da Rádio Itatiaia</span>
+          <span class="badge">Jornalista e locutor profissional</span>
+          <span class="badge">Anos de comunicação ao vivo</span>
+          <span class="badge">Treina executivos, líderes e criadores</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ MÓDULOS ══════════ -->
+  <section class="pad" style="padding-top:0;" id="modulos">
+    <div class="wrap">
+      <span class="kicker reveal">O programa</span>
+      <h2 class="h-section k" style="margin-top:18px;">O que você<br>vai aprender</h2>
+      <div class="mod-grid">
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">01</span><h3 class="mcard-t">A base: comunicação é clareza</h3></div><p class="mcard-d">Por que você trava e como resolver. Os 3 elementos de toda fala que convence.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">02</span><h3 class="mcard-t">Voz: dicção, projeção, ritmo, pausa</h3></div><p class="mcard-d">Como usar a voz como instrumento. O silêncio como ferramenta de poder.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">03</span><h3 class="mcard-t">Falar em público sem travar</h3></div><p class="mcard-d">A fisiologia do nervosismo. A técnica dos 3 pontos. Improvisar com estrutura.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">04</span><h3 class="mcard-t">Reuniões e apresentações</h3></div><p class="mcard-d">Como entrar sendo ouvido. A fórmula OPR. Lidar com interrupções e perguntas difíceis.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">05</span><h3 class="mcard-t">Comunicação em crise</h3></div><p class="mcard-d">Os primeiros 60 segundos de uma crise. Linguagem de responsabilidade vs. defesa.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">06</span><h3 class="mcard-t">Negociação: clareza &gt; coragem</h3></div><p class="mcard-d">Como a clareza bate a coragem improvisada. Dizer não sem criar inimigos.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">07</span><h3 class="mcard-t">Mini estúdio em casa</h3></div><p class="mcard-d">O que realmente importa para soar profissional com celular, luz e áudio.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">08</span><h3 class="mcard-t">Treino de voz na prática</h3></div><p class="mcard-d">Aquecimento vocal. Os 7 exercícios de dicção mais eficazes. Plano de 30 dias.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">09</span><h3 class="mcard-t">Media training básico</h3></div><p class="mcard-d">Como se preparar para entrevistas. Câmera, postura e erros fatais em aparições.</p></article>
+        <article class="mcard spotlight reveal"><div class="mcard-top"><span class="mcard-n mono">10</span><h3 class="mcard-t">Plano de 30 dias</h3></div><p class="mcard-d">Como continuar evoluindo depois do curso. Encerramento e próximos passos.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ BÔNUS ══════════ -->
+  <section class="pad" style="padding-top:0;">
+    <div class="wrap">
+      <span class="kicker reveal">Incluso na compra</span>
+      <h2 class="h-section k" style="margin-top:18px;">Seus bônus</h2>
+      <div class="bonus-grid">
+        <div class="bcard reveal">
+          <span class="bcard-tag">Bônus gratuito incluído</span>
+          <h3>5 Erros que Destroem Sua Credibilidade ao Falar</h3>
+          <p>Guia em PDF com as técnicas de correção para cada erro. Você pode baixar antes mesmo de comprar o curso, entrando na lista.</p>
+        </div>
+        <div class="bcard bump reveal">
+          <span class="bcard-tag">Oferta no checkout</span>
+          <h3>Masterclass: 30 Dias de Exercícios de Voz</h3>
+          <p>Áudios diários de aquecimento e um plano de prática progressivo. Complementa os módulos 2 e 8 do curso.</p>
+          <div class="price-mini">Apenas <span class="accent">R$ 47</span> no checkout</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ DEPOIMENTOS ══════════ -->
+  <!-- TODO: substituir pelos depoimentos reais (prints de DM, alunos do lead magnet). Nomes abaixo sao placeholders. -->
+  <section class="pad" style="padding-top:0;">
+    <div class="wrap">
+      <h2 class="h-section k">Quem aplicou,<br>sentiu a diferença</h2>
+      <div class="tgrid">
+        <figure class="tcard reveal">
+          <span class="tq">&ldquo;</span>
+          <blockquote>Apliquei o guia numa reunião difícil com o cliente. A diferença foi imediata.</blockquote>
+          <cite>Marina Rezende, gestora de projetos</cite>
+        </figure>
+        <figure class="tcard reveal">
+          <span class="tq">&ldquo;</span>
+          <blockquote>Nunca tinha pensado na pausa como ferramenta. Mudou minha forma de gravar.</blockquote>
+          <cite>Camila Borges, criadora de conteúdo</cite>
+        </figure>
+        <figure class="tcard reveal">
+          <span class="tq">&ldquo;</span>
+          <blockquote>Minha apresentação pro conselho foi a melhor que já fiz. Direta, sem nervo.</blockquote>
+          <cite>Rafael Lima, diretor comercial</cite>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PREÇO ══════════ -->
+  <section class="pricing" id="comprar">
+    <div class="pscene"><div class="pbg"></div></div>
+    <div class="wrap pricing-inner">
+      <div class="price-card reveal">
+        <p class="anchor">de <s>R$ 497</s> por</p>
+        <div class="price-now"><small>R$</small> 297</div>
+        <p class="price-install">ou <b>12x de R$ 29,70</b> sem juros</p>
+        <a href="https://pay.kiwify.com.br/COLE-SEU-CHECKOUT" class="btn btn-block" data-magnetic>Quero o curso</a>
+        <div class="price-meta">
+          <span>Garantia de 7 dias</span>
+          <span>Acesso vitalício</span>
+          <span>Plataforma Kiwify</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ GARANTIA ══════════ -->
+  <div class="guarantee">
+    <div class="wrap">
+      <div class="guarantee-inner">
+        <div class="seal reveal"><b>7</b><span>dias</span></div>
+        <div class="guarantee-text reveal">
+          <h3>Risco zero pra você</h3>
+          <p>Garantia incondicional de 7 dias. Assista aos primeiros módulos e, se sentir que não é pra você, peço o curso de volta e devolvo 100% do valor. Sem perguntas, sem letras miúdas. Todo o risco é meu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="pad">
+    <div class="wrap">
+      <h2 class="h-section k" style="text-align:center;">Perguntas frequentes</h2>
+      <div class="faq-list reveal">
+        <details><summary>Para quem é esse curso?</summary><p class="faq-a">Para qualquer pessoa que queira se comunicar com mais clareza e confiança: profissionais que precisam apresentar, líderes que precisam ser ouvidos, criadores de conteúdo, ou quem simplesmente trava na hora de falar.</p></details>
+        <details><summary>Preciso ter experiência anterior?</summary><p class="faq-a">Nenhuma. O curso começa do zero. O módulo 1 cobre os fundamentos para quem nunca pensou sobre comunicação como técnica.</p></details>
+        <details><summary>Quanto tempo tenho para assistir?</summary><p class="faq-a">Acesso vitalício. Você assiste quando e como quiser. O conteúdo fica disponível para sempre, em qualquer dispositivo.</p></details>
+        <details><summary>O curso inclui material de prática?</summary><p class="faq-a">Sim. Cada módulo tem exercícios práticos. O módulo 8 traz um plano de 30 dias de treino de voz com exercícios diários.</p></details>
+        <details><summary>Como funciona a garantia?</summary><p class="faq-a">7 dias incondicional. Se por qualquer motivo você não quiser continuar, basta solicitar o reembolso dentro de 7 dias após a compra e você recebe tudo de volta.</p></details>
+        <details><summary>Como vou acessar o curso?</summary><p class="faq-a">Após a compra, você recebe acesso à plataforma Kiwify com login e senha. Disponível em qualquer dispositivo com internet.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="final">
+    <div class="pscene"><div class="pbg"></div></div>
+    <div class="wrap final-inner">
+      <h2 class="k">Sua voz é<br>sua imagem</h2>
+      <p>Você fala todos os dias. A diferença está em aprender a fazer isso com intenção. Comece agora, com risco zero.</p>
+      <a href="https://pay.kiwify.com.br/COLE-SEU-CHECKOUT" class="btn" data-magnetic>Quero o curso</a>
+      <p class="final-note">De R$ 497 por R$ 297 ou 12x de R$ 29,70 · Garantia de 7 dias</p>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-brand">Emmanuel Duarte<span>A voz da Rádio Itatiaia</span></div>
+        <nav class="footer-links">
+          <a href="https://www.instagram.com/emmanuel_duarte.duarte/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@locutorduarte" target="_blank" rel="noopener">TikTok</a>
+          <a href="http://www.locutoremmanuel.com.br" target="_blank" rel="noopener">locutoremmanuel.com.br</a>
+        </nav>
+      </div>
+      <p class="footer-copy">© 2026 Emmanuel Duarte. Todos os direitos reservados.<br>Termos de uso · Política de privacidade</p>
+    </div>
+  </footer>
+
+  <script>
+    var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* header border on scroll */
+    (function () {
+      var header = document.getElementById('header'), ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) { window.requestAnimationFrame(function () { header.classList.toggle('scrolled', window.scrollY > 12); ticking = false; }); ticking = true; }
+      }, { passive: true });
+    })();
+
+    /* reveal + kinetic + stagger */
+    (function () {
+      var els = document.querySelectorAll('.reveal, .k, .stagger');
+      if (REDUCE || !('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { threshold: 0.16, rootMargin: '0px 0px -7% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* count-up */
+    (function () {
+      var nums = document.querySelectorAll('.stat-num[data-count]');
+      function run(el) {
+        var target = +el.dataset.count, pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+        if (REDUCE) { el.textContent = pre + target + suf; return; }
+        var dur = 1100, t0 = performance.now();
+        (function tick(now) { var p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3); el.textContent = pre + Math.round(target * e) + suf; if (p < 1) requestAnimationFrame(tick); })(t0);
+      }
+      if (!('IntersectionObserver' in window)) { nums.forEach(run); return; }
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { run(en.target); io.unobserve(en.target); } }); }, { threshold: 0.6 });
+      nums.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* magnetic buttons + spotlight follow */
+    if (!REDUCE && window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('[data-magnetic]').forEach(function (b) {
+        b.addEventListener('pointermove', function (e) { var r = b.getBoundingClientRect(); b.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * 0.25 + 'px,' + (e.clientY - r.top - r.height / 2) * 0.38 + 'px)'; });
+        b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+      });
+      document.querySelectorAll('.spotlight').forEach(function (el) {
+        el.addEventListener('pointermove', function (e) { var r = el.getBoundingClientRect(); el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+      });
+    }
+
+    /* radio-wave background field */
+    (function () {
+      var c = document.getElementById('bgWaves'); if (!c) return;
+      var ctx = c.getContext('2d'), W, H, DPR;
+      function size() { DPR = Math.min(window.devicePixelRatio || 1, 2); W = window.innerWidth; H = window.innerHeight; c.style.width = W + 'px'; c.style.height = H + 'px'; c.width = Math.floor(W * DPR); c.height = Math.floor(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+      size();
+      var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(size, 160); }, { passive: true });
+      var waves = [
+        { amp: 40, len: 0.0016, sp: 0.016, y: 0.30, w: 1.2, a: 0.11, col: '255,68,56' },
+        { amp: 58, len: 0.0011, sp: 0.011, y: 0.50, w: 1.4, a: 0.08, col: '255,68,56' },
+        { amp: 32, len: 0.0022, sp: 0.022, y: 0.67, w: 1.0, a: 0.06, col: '244,244,242' },
+        { amp: 74, len: 0.0008, sp: 0.008, y: 0.83, w: 1.6, a: 0.05, col: '255,68,56' }
+      ];
+      function draw(t) {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < waves.length; i++) { var v = waves[i]; ctx.beginPath();
+          for (var x = 0; x <= W; x += 6) { var y = H * v.y + Math.sin(x * v.len + t * v.sp + i) * v.amp; if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }
+          ctx.strokeStyle = 'rgba(' + v.col + ',' + v.a + ')'; ctx.lineWidth = v.w; ctx.stroke();
+        }
+      }
+      if (REDUCE) { draw(0); return; }
+      var raf, running = true, t = 0;
+      function loop() { if (!running) return; t += 1; draw(t); raf = requestAnimationFrame(loop); }
+      loop();
+      document.addEventListener('visibilitychange', function () { running = !document.hidden; if (running) loop(); else cancelAnimationFrame(raf); });
+    })();
+  </script>
+
+</body>
+</html>
