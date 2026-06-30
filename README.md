@@ -3,7 +3,7 @@
 **Status:** ✅ Landing (redesign tema "NO AR") no ar e funcional — Fase 1 (captura ativa)
 **Data de criação:** 11/06/2026
 **Última atualização:** 30/06/2026
-**Link ao vivo:** https://emmanuel-duarte.netlify.app
+**Link ao vivo:** https://emmanuel-duarte.vercel.app (deploy via Vercel CLI, conta renzoacd-7601)
 
 ---
 
